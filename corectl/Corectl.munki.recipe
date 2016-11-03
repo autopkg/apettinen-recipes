@@ -3,54 +3,55 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Download Corectl for macOS. </string>
+    <string>Download Corectl for macOS and import it to Munki</string>
     <key>Identifier</key>
     <string>com.github.apettinen.munki.corectl</string>
-    <key>Input</key>
-    <dict>
-        <key>INCLUDE_PRERELEASES</key>
-        <string></string>
-        <key>NAME</key>
-        <string>Corectl</string>
-    </dict>
+    <key>ParentRecipe</key>
+    <string>com.github.apettinen.download.corectl</string>
     <key>MinimumVersion</key>
     <string>0.6.0</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>corectl</string>
+        <key>MUNKI_REPO_SUBDIR</key>
+        <string>apps/%NAME%</string>
+        <key>MUNKI_CATEGORY</key>
+        <string>Developer Tools</string>
+        <key>MUNKI_DEVELOPER</key>
+        <string>The New Normal</string>
+    </dict>
     <key>Process</key>
     <array>
         <dict>
             <key>Processor</key>
-            <string>GitHubReleasesInfoProvider</string>
+            <string>MunkiImporter</string>
             <key>Arguments</key>
             <dict>
-              <key>include_prereleases</key>
-              <string>%INCLUDE_PRERELEASES%</string>
-              <key>github_repo</key>
-              <string>TheNewNormal/corectl.app</string>
+                <key>pkg_path</key>
+                <string>%pathname%</string>
+                <key>repo_subdirectory</key>
+                <string>%MUNKI_REPO_SUBDIR%</string>
+                <key>pkginfo</key>
+                <dict>
+                    <key>catalogs</key>
+                    <array>
+                        <string>testing</string>
+                    </array>
+                    <key>description</key>
+                    <string>Corectl App is a macOS Status bar App which works like a wrapper around the corectl command line tool corectld to control the server runtime process.</string>
+                    <key>display_name</key>
+                    <string>Corectl App</string>
+                    <key>name</key>
+                    <string>%NAME%</string>
+                    <key>unattended_install</key>
+                    <true/>
+                    <key>category</key>
+                    <string>%MUNKI_CATEGORY%</string>
+                    <key>developer</key>
+                    <string>%MUNKI_DEVELOPER%</string>
+                </dict>
             </dict>
-        </dict>
-        <dict>
-            <key>Arguments</key>
-            <dict>
-                <key>filename</key>
-                <string>%NAME%-%version%.dmg</string>
-            </dict>
-            <key>Processor</key>
-            <string>URLDownloader</string>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>EndOfCheckPhase</string>
-        </dict>
-        <dict>
-          <key>Processor</key>
-          <string>CodeSignatureVerifier</string>
-          <key>Arguments</key>
-          <dict>
-            <key>input_path</key>
-            <string>%pathname%/corectl.app</string>
-            <key>requirement</key>
-            <string>anchor apple generic and identifier "linxos.net.corectl.app" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "5LVLAZJPH7")</string>
-          </dict>
         </dict>
     </array>
 </dict>

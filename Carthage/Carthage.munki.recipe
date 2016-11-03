@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads the latest version of Carthage, a simple, decentralized dependency manager for Cocoa, and imports it to Munki</string>
+    <key>Identifier</key>
+    <string>com.github.apettinen.munki.Carthage</string>
+    <key>ParentRecipe</key>
+    <string>com.github.apettinen.download.Carthage</string>
+    <key>MinimumVersion</key>
+    <string>0.6.0</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>Carthage</string>
+        <key>MUNKI_REPO_SUBDIR</key>
+        <string>apps/%NAME%</string>
+        <key>MUNKI_CATEGORY</key>
+        <string>Developer Tools</string>
+        <key>MUNKI_DEVELOPER</key>
+        <string>Carthage project</string>
+    </dict>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>MunkiImporter</string>
+            <key>Arguments</key>
+            <dict>
+                <key>pkg_path</key>
+                <string>%pathname%</string>
+                <key>repo_subdirectory</key>
+                <string>%MUNKI_REPO_SUBDIR%</string>
+                <key>pkginfo</key>
+                <dict>
+                    <key>catalogs</key>
+                    <array>
+                        <string>testing</string>
+                    </array>
+                    <key>description</key>
+                    <string>Carthage is a simple, decentralized dependency manager for Cocoa (Xcode).</string>
+                    <key>display_name</key>
+                    <string>Carthage</string>
+                    <key>name</key>
+                    <string>%NAME%</string>
+                    <key>unattended_install</key>
+                    <true/>
+                    <key>category</key>
+                    <string>%MUNKI_CATEGORY%</string>
+                    <key>developer</key>
+                    <string>%MUNKI_DEVELOPER%</string>
+                </dict>
+            </dict>
+        </dict>
+    </array>
+</dict>
+</plist>

@@ -3,3 +3,6 @@
 *.dmg
 *.zip
 *.gz
+#this is for now...
+SkypeForBusiness*
+Tunnelblick*

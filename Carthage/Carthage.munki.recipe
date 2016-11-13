@@ -20,6 +20,25 @@
         <string>Developer Tools</string>
         <key>MUNKI_DEVELOPER</key>
         <string>Carthage project</string>
+        <key>pkginfo</key>
+        <dict>
+            <key>catalogs</key>
+            <array>
+                <string>testing</string>
+            </array>
+            <key>description</key>
+            <string>Carthage is a simple, decentralized dependency manager for Cocoa (Xcode).</string>
+            <key>display_name</key>
+            <string>Carthage</string>
+            <key>name</key>
+            <string>%NAME%</string>
+            <key>unattended_install</key>
+            <true/>
+            <key>category</key>
+            <string>%MUNKI_CATEGORY%</string>
+            <key>developer</key>
+            <string>%MUNKI_DEVELOPER%</string>
+        </dict>
     </dict>
     <key>Process</key>
     <array>
@@ -32,25 +51,6 @@
                 <string>%pathname%</string>
                 <key>repo_subdirectory</key>
                 <string>%MUNKI_REPO_SUBDIR%</string>
-                <key>pkginfo</key>
-                <dict>
-                    <key>catalogs</key>
-                    <array>
-                        <string>testing</string>
-                    </array>
-                    <key>description</key>
-                    <string>Carthage is a simple, decentralized dependency manager for Cocoa (Xcode).</string>
-                    <key>display_name</key>
-                    <string>Carthage</string>
-                    <key>name</key>
-                    <string>%NAME%</string>
-                    <key>unattended_install</key>
-                    <true/>
-                    <key>category</key>
-                    <string>%MUNKI_CATEGORY%</string>
-                    <key>developer</key>
-                    <string>%MUNKI_DEVELOPER%</string>
-                </dict>
             </dict>
         </dict>
     </array>

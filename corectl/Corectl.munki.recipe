@@ -20,6 +20,25 @@
         <string>Developer Tools</string>
         <key>MUNKI_DEVELOPER</key>
         <string>The New Normal</string>
+        <key>pkginfo</key>
+        <dict>
+            <key>catalogs</key>
+            <array>
+                <string>testing</string>
+            </array>
+            <key>description</key>
+            <string>Corectl App is a macOS Status bar App which works like a wrapper around the corectl command line tool corectld to control the server runtime process.</string>
+            <key>display_name</key>
+            <string>Corectl App</string>
+            <key>name</key>
+            <string>%NAME%</string>
+            <key>unattended_install</key>
+            <true/>
+            <key>category</key>
+            <string>%MUNKI_CATEGORY%</string>
+            <key>developer</key>
+            <string>%MUNKI_DEVELOPER%</string>
+        </dict>
     </dict>
     <key>Process</key>
     <array>
@@ -32,25 +51,6 @@
                 <string>%pathname%</string>
                 <key>repo_subdirectory</key>
                 <string>%MUNKI_REPO_SUBDIR%</string>
-                <key>pkginfo</key>
-                <dict>
-                    <key>catalogs</key>
-                    <array>
-                        <string>testing</string>
-                    </array>
-                    <key>description</key>
-                    <string>Corectl App is a macOS Status bar App which works like a wrapper around the corectl command line tool corectld to control the server runtime process.</string>
-                    <key>display_name</key>
-                    <string>Corectl App</string>
-                    <key>name</key>
-                    <string>%NAME%</string>
-                    <key>unattended_install</key>
-                    <true/>
-                    <key>category</key>
-                    <string>%MUNKI_CATEGORY%</string>
-                    <key>developer</key>
-                    <string>%MUNKI_DEVELOPER%</string>
-                </dict>
             </dict>
         </dict>
     </array>

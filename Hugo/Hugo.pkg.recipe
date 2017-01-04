@@ -80,7 +80,7 @@
           <key>Arguments</key>
           <dict>
             <key>pkgname</key>
-            <string>%NAME%-%KERNEL_BITS%bit-%version%</string>
+            <string>%NAME%-%version%-%KERNEL_BITS%bit</string>
             <key>pkg_request</key>
             <dict>
               <key>pkgdir</key>
@@ -101,6 +101,17 @@
                 </dict>
               </array>
             </dict>
+          </dict>
+        </dict>
+        <dict>
+          <key>Processor</key>
+          <string>PathDeleter</string>
+          <key>Comment</key>
+          <string>Cleaning up</string>
+          <key>Arguments</key>
+          <dict>
+            <key>path_list</key>
+            <string>%pkgroot%</string>
           </dict>
         </dict>
     </array>

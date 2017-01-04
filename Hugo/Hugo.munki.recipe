@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads the latest version of Hugo, a fast and modern static website engine written in Golang, and imports it to Munki.</string>
+    <key>Identifier</key>
+    <string>com.github.apettinen.munki.Hugo</string>
+    <key>ParentRecipe</key>
+    <string>com.github.apettinen.pkg.Hugo</string>
+    <key>MinimumVersion</key>
+    <string>0.6.0</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>Hugo</string>
+        <key>MUNKI_REPO_SUBDIR</key>
+        <string>apps/%NAME%</string>
+        <key>MUNKI_CATEGORY</key>
+        <string>Developer Tools</string>
+        <key>MUNKI_DEVELOPER</key>
+        <string>Steve Francia</string>
+        <key>DISPLAY_NAME</key>
+        <string>%NAME%</string>
+        <key>pkginfo</key>
+        <dict>
+            <key>catalogs</key>
+            <array>
+                <string>testing</string>
+            </array>
+            <key>description</key>
+            <string>Hugo, a fast and modern static website engine written in Golang. Hugo works flexibly with many formats, and is ideal for blogs, docs, portfolios and much more. Hugo’s speed fosters creativity—it makes building a website fun again.</string>
+            <key>display_name</key>
+            <string>%DISPLAY_NAME%</string>
+            <key>name</key>
+            <string>%NAME%</string>
+            <key>unattended_install</key>
+            <true/>
+            <key>category</key>
+            <string>%MUNKI_CATEGORY%</string>
+            <key>developer</key>
+            <string>%MUNKI_DEVELOPER%</string>
+        </dict>
+    </dict>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>MunkiImporter</string>
+            <key>Arguments</key>
+            <dict>
+                <key>repo_subdirectory</key>
+                <string>%MUNKI_REPO_SUBDIR%</string>
+            </dict>
+        </dict>
+    </array>
+</dict>
+</plist>

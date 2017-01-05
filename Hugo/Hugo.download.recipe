@@ -40,7 +40,7 @@
 				<key>include_prereleases</key>
 				<string>%INCLUDE_PRERELEASES%</string>
 				<key>filename</key>
-				<string>%NAME%-%version%-%KERNEL_BITS%bit.zip</string>
+				<string>%NAME%-%KERNEL_BITS%bit-%version%.zip</string>
 			</dict>
 		</dict>
 		<dict>

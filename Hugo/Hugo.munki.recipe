@@ -12,8 +12,8 @@
     <string>0.6.0</string>
     <key>Input</key>
     <dict>
-        <key>NAME</key>
-        <string>Hugo</string>
+        <key>MUNKI_NAME</key>
+        <string>%NAME%-%KERNEL_BITS%bit</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps/%NAME%</string>
         <key>MUNKI_CATEGORY</key>
@@ -21,7 +21,7 @@
         <key>MUNKI_DEVELOPER</key>
         <string>Steve Francia</string>
         <key>DISPLAY_NAME</key>
-        <string>%NAME%</string>
+        <string>%NAME% %KERNEL_BITS%bit</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
@@ -33,7 +33,7 @@
             <key>display_name</key>
             <string>%DISPLAY_NAME%</string>
             <key>name</key>
-            <string>%NAME%</string>
+            <string>%MUNKI_NAME%</string>
             <key>unattended_install</key>
             <true/>
             <key>category</key>

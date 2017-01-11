@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads OneDrive standalone installer and imports it to Munki. Does not customize the settings. See https://support.office.com/en-us/article/Configure-the-OneDrive-Next-Generation-Sync-Client-on-macOS-eadddc4e-edc0-4982-9f50-2aef5038c307?ui=en-US&rs=en-US&ad=US for configuration options.</string>
+    <string>Downloads OneDrive standalone installer and imports it to Munki. Does not customize the settings. See https://support.office.com/en-us/article/Configure-the-OneDrive-Next-Generation-Sync-Client-on-macOS-eadddc4e-edc0-4982-9f50-2aef5038c307 for configuration options.</string>
     <key>Identifier</key>
     <string>com.github.apettinen.munki.MSOneDrive</string>
     <key>ParentRecipe</key>

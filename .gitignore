@@ -1,8 +1,11 @@
-*.pkg
-*.mpkg
-*.dmg
-*.zip
-*.gz
+#*.pkg
+#*.mpkg
+#*.dmg
+#*.zip
+#*.gz
 #this is for now...
-SkypeForBusiness*
-Tunnelblick*
+#SkypeForBusiness*
+#Tunnelblick*
+*.*
+!*.recipe
+!README.md

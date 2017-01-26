@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads and packages the latest version of GitHub git-lfs and imports it to Munki.</string>
+    <key>Identifier</key>
+    <string>com.github.apettinen.munki.git-lfs</string>
+    <key>ParentRecipe</key>
+    <string>com.github.apettinen.pkg.git-lfs</string>
+    <key>MinimumVersion</key>
+    <string>0.6.0</string>
+    <key>Input</key>
+    <dict>
+        <key>MUNKI_NAME</key>
+        <string>%NAME%-%BITS%</string>
+        <key>MUNKI_REPO_SUBDIR</key>
+        <string>apps/GitHub/%NAME%</string>
+        <key>MUNKI_CATEGORY</key>
+        <string>Developer Tools</string>
+        <key>MUNKI_DEVELOPER</key>
+        <string>GitHub, Inc.</string>
+        <key>DISPLAY_NAME</key>
+        <string>%NAME% %BITS%</string>
+        <key>pkginfo</key>
+        <dict>
+            <key>catalogs</key>
+            <array>
+                <string>testing</string>
+            </array>
+            <key>description</key>
+            <string>Git LFS is a command line extension and specification for managing large files with Git. Check out the Git LFS website for an overview of features.</string>
+            <key>display_name</key>
+            <string>%DISPLAY_NAME%</string>
+            <key>name</key>
+            <string>%MUNKI_NAME%</string>
+            <key>unattended_install</key>
+            <true/>
+            <key>category</key>
+            <string>%MUNKI_CATEGORY%</string>
+            <key>developer</key>
+            <string>%MUNKI_DEVELOPER%</string>
+        </dict>
+    </dict>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>MunkiImporter</string>
+            <key>Arguments</key>
+            <dict>
+                <key>repo_subdirectory</key>
+                <string>%MUNKI_REPO_SUBDIR%</string>
+            </dict>
+        </dict>
+    </array>
+</dict>
+</plist>

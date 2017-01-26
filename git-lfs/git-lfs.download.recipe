@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Download GitHub git-lfs binary for macOS. This recipe can be configured to download either 64bit (amd64) or 32bit (386) build.</string>
+    <key>Identifier</key>
+    <string>com.github.apettinen.download.git-lfs</string>
+    <key>Input</key>
+    <dict>
+        <key>INCLUDE_PRERELEASES</key>
+        <string></string>
+        <key>NAME</key>
+        <string>git-lfs</string>
+        <!-- options for bits: amd64 and 386 -->
+        <key>BITS</key>
+        <string>amd64</string>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>0.6.0</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>GitHubReleasesInfoProvider</string>
+            <key>Arguments</key>
+            <dict>
+              <key>include_prereleases</key>
+              <string>%INCLUDE_PRERELEASES%</string>
+              <key>github_repo</key>
+              <string>git-lfs/git-lfs</string>
+              <key>asset_regex</key>
+              <string>git-lfs-darwin-%BITS%-.+\.tar.gz</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>filename</key>
+                <string>%NAME%-%BITS%-%version%.tar.gz</string>
+            </dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+        </dict>
+    </array>
+</dict>
+</plist>

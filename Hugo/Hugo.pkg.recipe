@@ -80,7 +80,7 @@
           <key>Arguments</key>
           <dict>
             <key>pkgname</key>
-            <string>%NAME%-%KERNEL_BITS%bit-%version%</string>
+            <string>%NAME%_%KERNEL_BITS%bit-%version%</string>
             <key>pkg_request</key>
             <dict>
               <key>pkgdir</key>

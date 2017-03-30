@@ -3,20 +3,20 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads and installs the latest version of OneDrive standalone.</string>
+    <string>Downloads and installs the latest version of Microsoft Teams</string>
     <key>Identifier</key>
-    <string>com.github.apettinen.install.MSOneDrive</string>
+    <string>com.github.apettinen.install.MSTeams</string>
     <key>Input</key>
     <dict/>
     <key>MinimumVersion</key>
     <string>0.6.0</string>
     <key>ParentRecipe</key>
-    <string>com.github.apettinen.download.MSOneDrive</string>
+    <string>com.github.apettinen.download.MSTeams</string>
     <key>Process</key>
     <array>
         <dict>
             <key>Processor</key>
-            <string>Installer</string>
+            <string>InstallFromDMG</string>
             <key>Arguments</key>
             <dict>
                 <key>pkg_path</key>

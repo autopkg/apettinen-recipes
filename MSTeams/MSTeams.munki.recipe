@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads OneDrive standalone installer and imports it to Munki. Does not customize the settings. See https://support.office.com/en-us/article/Configure-the-OneDrive-Next-Generation-Sync-Client-on-macOS-eadddc4e-edc0-4982-9f50-2aef5038c307 for configuration options.</string>
+    <string>Downloads Microsoft Teams and imports it to Munki. </string>
     <key>Identifier</key>
-    <string>com.github.apettinen.munki.MSOneDrive</string>
+    <string>com.github.apettinen.munki.MSTeams</string>
     <key>ParentRecipe</key>
-    <string>com.github.apettinen.download.MSOneDrive</string>
+    <string>com.github.apettinen.download.MSTeams</string>
     <key>MinimumVersion</key>
     <string>0.6.0</string>
     <key>Input</key>
@@ -30,7 +30,7 @@
             </array>
             <key>description</key>
             <string>
-              Get to your files from anywhere, on any device, with Microsoft OneDrive. Share and work together with anyone in your work and life. With OneDrive for Business, you also get storage for your work files so you can share and collaborate on them with other people at your work or school/university. The OneDrive app for Mac makes it easy to work with your OneDrive files on your Mac.</string>
+            </string>
             <key>display_name</key>
             <string>%DISPLAY_NAME%</string>
             <key>name</key>
@@ -42,7 +42,7 @@
             <key>developer</key>
             <string>%MUNKI_DEVELOPER%</string>
             <key>minimum_os_version</key>
-            <string>10.9</string>
+            <string>10.10</string>
         </dict>
     </dict>
     <key>Process</key>

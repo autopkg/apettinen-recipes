@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest version of Microsoft Teams pkg from Microsoft. Allows you to override if you are using some other source to download.</string>
+    <string>Downloads the latest version of Microsoft Teams dmg from Microsoft. Currently supports only production branch.</string>
     <key>Identifier</key>
     <string>com.github.apettinen.download.MSTeams</string>
     <key>MinimumVersion</key>
@@ -12,7 +12,6 @@
     <dict>
         <key>NAME</key>
         <string>MSTeams</string>
-
     </dict>
     <key>Process</key>
     <array>

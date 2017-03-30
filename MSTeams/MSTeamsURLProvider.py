@@ -23,7 +23,6 @@ from autopkglib import Processor, ProcessorError
 __all__ = ["MSTeamsURLProvider"]
 
 BASE_URL = "https://teams.microsoft.com/downloads/DesktopURL?"
-#env=production&plat=osx
 TEAMS_ENVIRONMENT = "production"
 TEAMS_PLATFORM = "osx"
 TEAMS_ARCH = ""

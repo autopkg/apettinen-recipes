@@ -65,7 +65,7 @@ class MSTeamsURLProvider(Processor):
         # if the URL is empty, raise error
         if not dl_url:
             raise ProcessorError(
-                "Could not find MSTeams download URL in %s" %base_url)
+                "Could not find MSTeams download URL in %s" %fetch_url)
         return dl_url
 
     def main(self):
@@ -75,7 +75,7 @@ class MSTeamsURLProvider(Processor):
         teams_plat = self.env.get("platform", TEAMS_PLATFORM)
         teams_arch = self.env.get("architecture", TEAMS_ARCH)
 
-        fetch_url =  "".join([base_url, "env=", teams_env, "&plat=", teams_plat])
+        fetch_url = "".join([base_url, "env=", teams_env, "&plat=", teams_plat])
         # Windows only:
         if teams_arch and teams_plat == "windows":
             fetch_url = "".join([fetch_url, "&arch=", teams_arch])

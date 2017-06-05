@@ -16,9 +16,6 @@
 		<string></string>
 		<key>KERNEL_BITS</key>
 		<string>64</string>
-		<key>ARCHIVE_TYPE</key>
-		<!-- set this to .zip if you want older versions-->
-		<string>tar.gz</string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>0.6.0</string>
@@ -29,6 +26,8 @@
 			<string>GitHubReleasesInfoProvider</string>
 			<key>Arguments</key>
 			<dict>
+				<key>include_prereleases</key>
+				<string>%INCLUDE_PRERELEASES%</string>
 				<key>github_repo</key>
 				<string>%GITHUB_REPO%</string>
 				<key>asset_regex</key>
@@ -40,10 +39,8 @@
 			<string>URLDownloader</string>
 			<key>Arguments</key>
 			<dict>
-				<key>include_prereleases</key>
-				<string>%INCLUDE_PRERELEASES%</string>
 				<!-- <key>filename</key>
-				<string>%url</string> -->
+				<string>%url%</string> -->
 			</dict>
 		</dict>
 		<dict>

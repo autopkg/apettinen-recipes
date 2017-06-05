@@ -52,26 +52,16 @@
         </dict>
         <dict>
           <key>Processor</key>
-          <string>FileMover</string>
-          <key>Comment</key>
-          <string>Move and rename the downloaded binary from the unarchived subfolder</string>
-          <key>Arguments</key>
-          <dict>
-            <key>source</key>
-            <string>%pkgroot%/usr/local/bin/%NAME%_%version%_darwin_amd%KERNEL_BITS%/%NAME%_%version%_darwin_amd%KERNEL_BITS%</string>
-            <key>target</key>
-            <string>%pkgroot%/usr/local/bin/%BINARY_NAME%</string>
-          </dict>
-        </dict>
-        <dict>
-          <key>Processor</key>
           <string>PathDeleter</string>
           <key>Comment</key>
-          <string>Delete the now unnecessary subfolder</string>
+          <string>Delete unnecessary files</string>
           <key>Arguments</key>
           <dict>
             <key>path_list</key>
-            <string>%pkgroot%/usr/local/bin/%NAME%_%version%_darwin_amd%KERNEL_BITS%/</string>
+            <array>
+              <string>%pkgroot%/usr/local/bin/LICENSE.md</string>
+              <string>%pkgroot%/usr/local/bin/README.md</string>
+            </array>
           </dict>
         </dict>
         <dict>

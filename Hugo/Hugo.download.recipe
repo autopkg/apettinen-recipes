@@ -16,6 +16,9 @@
 		<string></string>
 		<key>KERNEL_BITS</key>
 		<string>64</string>
+		<key>ARCHIVE_TYPE</key>
+		<!-- set this to .zip if you want older versions-->
+		<string>tar.gz</string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>0.6.0</string>
@@ -29,7 +32,7 @@
 				<key>github_repo</key>
 				<string>%GITHUB_REPO%</string>
 				<key>asset_regex</key>
-				<string>hugo_[0-9].[0-9]{2}_macOS-%KERNEL_BITS%bit.zip</string>
+				<string>hugo_(\d+).(\d+)?(.\d+)_macOS-%KERNEL_BITS%bit.(zip|tar.gz)</string>
 			</dict>
 		</dict>
 		<dict>
@@ -39,8 +42,8 @@
 			<dict>
 				<key>include_prereleases</key>
 				<string>%INCLUDE_PRERELEASES%</string>
-				<key>filename</key>
-				<string>%NAME%_%KERNEL_BITS%bit-%version%.zip</string>
+				<!-- <key>filename</key>
+				<string>%url</string> -->
 			</dict>
 		</dict>
 		<dict>

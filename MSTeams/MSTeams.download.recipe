@@ -15,7 +15,7 @@
         <key>MSTEAMS_ENVIRONMENT</key>
         <string>production</string>
         <key>MSTEAMS_PLATFORM</key>
-        <string>windows</string>
+        <string>osx</string>
     </dict>
     <key>Process</key>
     <array>

@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads Microsoft Teams and imports it to Munki. </string>
+    <string>Downloads Microsoft Teams and imports it to Munki.</string>
     <key>Identifier</key>
     <string>com.github.apettinen.munki.MSTeams</string>
     <key>ParentRecipe</key>
@@ -42,8 +42,6 @@
             <string>%MUNKI_CATEGORY%</string>
             <key>developer</key>
             <string>%MUNKI_DEVELOPER%</string>
-            <key>minimum_os_version</key>
-            <string>10.10</string>
         </dict>
     </dict>
     <key>Process</key>

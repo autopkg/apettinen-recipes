@@ -32,7 +32,11 @@
               <string>0755</string>
               <key>Library/Extensions</key>
               <string>0755</string>
+              <key>Library/LaunchDaemons</key>
+              <string>0755</string>
               <key>Library/Objective-See/LuLu</key>
+              <string>0755</string>
+              <key>Applications</key>
               <string>0755</string>
             </dict>
           </dict>
@@ -45,10 +49,90 @@
                 <key>archive_path</key>
                 <string>%pathname%</string>
                 <key>destination_path</key>
-                <string>%pkgroot%</string>
+                <string>%RECIPE_CACHE_DIR%/unzipped/</string>
                 <key>purge_destination</key>
                 <true/>
             </dict>
+        </dict>
+        <dict>
+          <key>Processor</key>
+          <string>CodeSignatureVerifier</string>
+          <key>Arguments</key>
+          <dict>
+            <key>input_path</key>
+            <string>%RECIPE_CACHE_DIR%/unzipped/LuLu.app</string>
+            <key>requirements</key>
+            <string>anchor apple generic and identifier "com.objective-see.lulu" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = VBG97UB4TA)</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>Processor</key>
+          <string>Versioner</string>
+          <key>Arguments</key>
+          <dict>
+            <key>input_plist_path</key>
+            <string>%RECIPE_CACHE_DIR%/unzipped/LuLu.app/Contents/Info.plist</string>
+            <key>plist_version_key</key>
+            <string>CFBundleShortVersionString</string>
+          </dict>
+        </dict>
+        <!-- Move files and directories -->
+        <dict>
+          <key>Processor</key>
+          <string>FileMover</string>
+          <key>Arguments</key>
+          <dict>
+            <key>source</key>
+            <string>%RECIPE_CACHE_DIR%/unzipped/rules.plist</string>
+            <key>target</key>
+            <string>%pkgroot%/Library/Objective-See/LuLu/rules.plist</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>Processor</key>
+          <string>FileMover</string>
+          <key>Arguments</key>
+          <dict>
+            <key>source</key>
+            <string>%RECIPE_CACHE_DIR%/unzipped/LuLuDaemon</string>
+            <key>target</key>
+            <string>%pkgroot%/Library/Objective-See/LuLu/LuLuDaemon</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>Processor</key>
+          <string>FileMover</string>
+          <key>Arguments</key>
+          <dict>
+            <key>source</key>
+            <string>%RECIPE_CACHE_DIR%/unzipped/com.objective-see.lulu.plist</string>
+            <key>target</key>
+            <string>%pkgroot%/Library/LaunchDaemons/com.objective-see.lulu.plist</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>Processor</key>
+          <string>Copier</string>
+          <key>comment</key>
+          <string>Copy directories from .zip to correct paths inside the pkg</string>
+          <key>Arguments</key>
+          <dict>
+            <key>source_path</key>
+            <string>%RECIPE_CACHE_DIR%/unzipped/LuLu.kext</string>
+            <key>destination_path</key>
+            <string>%pkgroot%/Library/Extensions/LuLu.kext</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>Processor</key>
+          <string>Copier</string>
+          <key>Arguments</key>
+          <dict>
+            <key>source_path</key>
+            <string>%RECIPE_CACHE_DIR%/unzipped/LuLu.app</string>
+            <key>destination_path</key>
+            <string>%pkgroot%/Applications/LuLu.app</string>
+          </dict>
         </dict>
         <dict>
           <key>Processor</key>
@@ -66,18 +150,73 @@
               <key>options</key>
               <string>purge_ds_store</string>
               <key>version</key>
-              <string></string>
+              <string>%version%</string>
+              <key>pkgtype</key>
+              <string>flat</string>
               <key>chown</key>
               <array>
                 <dict>
+                  <!-- rules -->
                   <key>path</key>
-                  <string>usr</string>
+                  <string>/Library/Objective-See/LuLu/rules.plist</string>
+                  <key>user</key>
+                  <string>root</string>
+                  <key>group</key>
+                  <string>wheel</string>
+                  <key>mode</key>
+                  <string>0700</string>
+                </dict>
+                <dict>
+                  <!-- kext -->
+                  <key>path</key>
+                  <string>/Library/Extensions/LuLu.kext</string>
+                  <key>user</key>
+                  <string>root</string>
+                  <key>group</key>
+                  <string>wheel</string>
+                </dict>
+                <dict>
+                  <!-- launch daemon -->
+                  <key>path</key>
+                  <string>/Library/Objective-See/LuLu/LuLuDaemon</string>
+                  <key>user</key>
+                  <string>root</string>
+                  <key>group</key>
+                  <string>wheel</string>
+                  <key>mode</key>
+                  <string>0755</string>
+                </dict>
+                <dict>
+                  <!-- launch daemon plist -->
+                  <key>path</key>
+                  <string>/Library/LaunchDaemons/com.objective-see.lulu.plist</string>
+                  <key>user</key>
+                  <string>root</string>
+                  <key>group</key>
+                  <string>wheel</string>
+                  <key>mode</key>
+                  <string>0644</string>
+                </dict>
+                <dict>
+                  <key>path</key>
+                  <string>/Applications</string>
                   <key>user</key>
                   <string>root</string>
                   <key>group</key>
                   <string>admin</string>
                 </dict>
+                <dict>
+                  <!-- main application -->
+                  <key>path</key>
+                  <string>/Applications/LuLu.app</string>
+                  <key>user</key>
+                  <string>root</string>
+                  <key>group</key>
+                  <string>wheel</string>
+                </dict>
               </array>
+              <key>scripts</key>
+              <string>%pkgroot%/scripts</string>
             </dict>
           </dict>
         </dict>
@@ -89,7 +228,10 @@
           <key>Arguments</key>
           <dict>
             <key>path_list</key>
-            <string>%pkgroot%</string>
+            <array>
+              <string>%pkgroot%</string>
+              <string>%RECIPE_CACHE_DIR%/unzipped</string>
+            </array>
           </dict>
         </dict>
     </array>

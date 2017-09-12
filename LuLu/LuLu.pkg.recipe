@@ -160,7 +160,7 @@ fi
 # hmm... this might already be obsolete:
 /usr/bin/xattr -rc /Applications/LuLu.app/
 /sbin/kextload /Library/Extensions/LuLu.kext
-/bin/launchctl load /Library/LaunchDaemons/com.objective-see.lulu.plist
+/bin/launchctl load -w /Library/LaunchDaemons/com.objective-see.lulu.plist
 #/Applications/LuLu.app/Contents/MacOS/LuLu "-install"
 exit 0
             </string>

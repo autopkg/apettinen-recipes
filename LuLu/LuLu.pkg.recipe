@@ -150,6 +150,13 @@
             <string>%pkgroot%/scripts/postinstall</string>
             <key>file_content</key>
             <string>#!/bin/sh
+# mimicking LuLu configure.sh
+OSVers=`sw_vers -productVersion`
+if [[ ${OSVers:3:2} -lt 12 ]]; then
+  echo "\nERROR:" $OSVers "is currently unsupported"
+  echo "LuLu requires macOS 10.12+\n"
+  exit -1
+fi
 echo "removing xattrs from app"
 /usr/bin/xattr -rc /Applications/LuLu.app/
 echo "Loading kext..."
@@ -190,6 +197,14 @@ exit 1
               <string>%pkgroot%/scripts</string>
               <key>chown</key>
               <array>
+                <dict>
+                  <key>path</key>
+                  <string>/Library</string>
+                  <key>user</key>
+                  <string>root</string>
+                  <key>group</key>
+                  <string>wheel</string>
+                </dict>
                 <dict>
                   <!-- rules -->
                   <key>path</key>

@@ -13,7 +13,7 @@
         <key>NAME</key>
         <string>LuLu</string>
         <key>URL</key>
-        <string>https://github.com/objective-see/LuLu/blob/master/deploy/LuLu.zip</string>
+        <string>https://github.com/objective-see/LuLu/raw/master/deploy/LuLu.zip</string>
     </dict>
     <key>Process</key>
     <array>

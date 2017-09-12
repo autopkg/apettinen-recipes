@@ -26,17 +26,21 @@
             <string>%RECIPE_CACHE_DIR%/pkgroot</string>
             <key>pkgdirs</key>
             <dict>
-              <key>Library</key>
+              <key>build</key>
               <string>0755</string>
-              <key>Library/Objective-See</key>
+              <key>build/Library</key>
               <string>0755</string>
-              <key>Library/Extensions</key>
+              <key>build/Library/Objective-See</key>
               <string>0755</string>
-              <key>Library/LaunchDaemons</key>
+              <key>build/Library/Extensions</key>
               <string>0755</string>
-              <key>Library/Objective-See/LuLu</key>
+              <key>build/Library/LaunchDaemons</key>
               <string>0755</string>
-              <key>Applications</key>
+              <key>build/Library/Objective-See/LuLu</key>
+              <string>0755</string>
+              <key>build/Applications</key>
+              <string>0755</string>
+              <key>scripts</key>
               <string>0755</string>
             </dict>
           </dict>
@@ -80,12 +84,14 @@
         <dict>
           <key>Processor</key>
           <string>FileMover</string>
+          <key>comment</key>
+          <string>Move files from .zip to correct paths inside the pkg</string>
           <key>Arguments</key>
           <dict>
             <key>source</key>
             <string>%RECIPE_CACHE_DIR%/unzipped/rules.plist</string>
             <key>target</key>
-            <string>%pkgroot%/Library/Objective-See/LuLu/rules.plist</string>
+            <string>%pkgroot%/build/Library/Objective-See/LuLu/rules.plist</string>
           </dict>
         </dict>
         <dict>
@@ -96,7 +102,7 @@
             <key>source</key>
             <string>%RECIPE_CACHE_DIR%/unzipped/LuLuDaemon</string>
             <key>target</key>
-            <string>%pkgroot%/Library/Objective-See/LuLu/LuLuDaemon</string>
+            <string>%pkgroot%/build/Library/Objective-See/LuLu/LuLuDaemon</string>
           </dict>
         </dict>
         <dict>
@@ -107,7 +113,7 @@
             <key>source</key>
             <string>%RECIPE_CACHE_DIR%/unzipped/com.objective-see.lulu.plist</string>
             <key>target</key>
-            <string>%pkgroot%/Library/LaunchDaemons/com.objective-see.lulu.plist</string>
+            <string>%pkgroot%/build/Library/LaunchDaemons/com.objective-see.lulu.plist</string>
           </dict>
         </dict>
         <dict>
@@ -120,7 +126,7 @@
             <key>source_path</key>
             <string>%RECIPE_CACHE_DIR%/unzipped/LuLu.kext</string>
             <key>destination_path</key>
-            <string>%pkgroot%/Library/Extensions/LuLu.kext</string>
+            <string>%pkgroot%/build/Library/Extensions/LuLu.kext</string>
           </dict>
         </dict>
         <dict>
@@ -131,7 +137,32 @@
             <key>source_path</key>
             <string>%RECIPE_CACHE_DIR%/unzipped/LuLu.app</string>
             <key>destination_path</key>
-            <string>%pkgroot%/Applications/LuLu.app</string>
+            <string>%pkgroot%/build/Applications/LuLu.app</string>
+          </dict>
+        </dict>
+        <!-- create postinstall script -->
+        <dict>
+          <key>Processor</key>
+          <string>FileCreator</string>
+          <key>Arguments</key>
+          <dict>
+            <key>file_path</key>
+            <string>%pkgroot%/scripts/postinstall</string>
+            <key>file_content</key>
+            <string>#!/bin/sh
+echo "removing xattrs from app"
+/usr/bin/xattr -rc /Applications/LuLu.app/
+echo "Loading kext..."
+/sbin/kextload /Library/Extensions/LuLu.kext
+echo "kext loaded, loading launch daemon"
+/bin/launchctl load /Library/LaunchDaemons/com.objective-see.lulu.plist
+echo "launch daemon loaded, starting main and helper apps"
+/Applications/LuLu.app/Contents/MacOS/LuLu "--install"
+echo "install completed"
+exit 1
+            </string>
+            <key>file_mode</key>
+            <string>0755</string>
           </dict>
         </dict>
         <dict>
@@ -140,9 +171,11 @@
           <key>Arguments</key>
           <dict>
             <key>pkgname</key>
-            <string>%NAME%</string>
+            <string>%NAME%-%version%</string>
             <key>pkg_request</key>
             <dict>
+              <key>pkgroot</key>
+              <string>%pkgroot%/build</string>
               <key>pkgdir</key>
               <string>%RECIPE_CACHE_DIR%</string>
               <key>id</key>
@@ -153,6 +186,8 @@
               <string>%version%</string>
               <key>pkgtype</key>
               <string>flat</string>
+              <key>scripts</key>
+              <string>%pkgroot%/scripts</string>
               <key>chown</key>
               <array>
                 <dict>
@@ -198,6 +233,7 @@
                   <string>0644</string>
                 </dict>
                 <dict>
+                  <!-- Applications dir -->
                   <key>path</key>
                   <string>/Applications</string>
                   <key>user</key>
@@ -215,8 +251,6 @@
                   <string>wheel</string>
                 </dict>
               </array>
-              <key>scripts</key>
-              <string>%pkgroot%/scripts</string>
             </dict>
           </dict>
         </dict>

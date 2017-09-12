@@ -157,16 +157,12 @@ if [[ ${OSVers:3:2} -lt 12 ]]; then
   echo "LuLu requires macOS 10.12+\n"
   exit -1
 fi
-echo "removing xattrs from app"
+# hmm... this might already be obsolete:
 /usr/bin/xattr -rc /Applications/LuLu.app/
-echo "Loading kext..."
 /sbin/kextload /Library/Extensions/LuLu.kext
-echo "kext loaded, loading launch daemon"
 /bin/launchctl load /Library/LaunchDaemons/com.objective-see.lulu.plist
-echo "launch daemon loaded, starting main and helper apps"
-/Applications/LuLu.app/Contents/MacOS/LuLu "--install"
-echo "install completed"
-exit 1
+#/Applications/LuLu.app/Contents/MacOS/LuLu "-install"
+exit 0
             </string>
             <key>file_mode</key>
             <string>0755</string>

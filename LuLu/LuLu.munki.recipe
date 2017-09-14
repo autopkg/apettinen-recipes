@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads, packages and imports to Munki the latest version of LuLu by Objective-See. LuLu is the free open-source macOS firewall aiming to block outgoing connections. LuLu is currently in Alpha stage!</string>
+    <key>Identifier</key>
+    <string>com.github.apettinen.munki.LuLu</string>
+    <key>ParentRecipe</key>
+    <string>com.github.apettinen.pkg.LuLu</string>
+    <key>MinimumVersion</key>
+    <string>0.6.0</string>
+    <key>Input</key>
+    <dict>
+        <key>MUNKI_NAME</key>
+        <string>%NAME%</string>
+        <key>MUNKI_REPO_SUBDIR</key>
+        <string>apps/%NAME%</string>
+        <key>MUNKI_CATEGORY</key>
+        <string>Security</string>
+        <key>MUNKI_DEVELOPER</key>
+        <string>Objective-See</string>
+        <key>DISPLAY_NAME</key>
+        <string>LuLu Firewall</string>
+        <key>pkginfo</key>
+        <dict>
+            <key>catalogs</key>
+            <array>
+                <string>testing</string>
+            </array>
+            <key>description</key>
+            <string>LuLu is the free open-source macOS firewall aiming to block outgoing connections. LuLu is currently in Alpha stage!</string>
+            <key>display_name</key>
+            <string>%DISPLAY_NAME%</string>
+            <key>name</key>
+            <string>%MUNKI_NAME%</string>
+            <key>unattended_install</key>
+            <true/>
+            <key>category</key>
+            <string>%MUNKI_CATEGORY%</string>
+            <key>developer</key>
+            <string>%MUNKI_DEVELOPER%</string>
+            <key>minimum_os_version</key>
+            <string>10.12</string>
+            <key>postinstall_script</key>
+            <string>#!/bin/bash
+/Applications/LuLu.app/Contents/MacOS/LuLu "-install"
+exit 0
+            </string>
+            <key>preuninstall_script</key>
+            <string>#!/bin/bash
+/Applications/LuLu.app/Contents/MacOS/LuLu "-uninstall"
+exit 0
+            </string>
+            <key>uninstall_script</key>
+            <string>#!/bin/sh
+echo "Unloading and removing kext..."
+/sbin/kextload -b com.objective-see.lulu
+/bin/rm -rf /Library/Extensions/LuLu.kext
+echo "Kext removed, unloading and removing launch daemon and plist"
+/bin/launchctl unload -w /Library/LaunchDaemons/com.objective-see.lulu.plist
+/bin/rm /Library/LaunchDaemons/com.objective-see.lulu.plist
+echo "Unloaded and removed launch daemon and plist, removing the main app"
+/bin/rm -rf /Applications/LuLu.app
+echo "removed the main app, removing LuLu main folder"
+/bin/rm -rf /Library/Objective-See/LuLu
+echo "killing the processes..."
+/usr/bin/killall "LuLu" 2> /dev/null
+/usr/bin/killall "com.objective-see.luluHelper" 2> /dev/null
+/usr/bin/killall "LuLu Helper" 2> /dev/null
+echo "uninstall completed"
+exit 0
+            </string>
+        </dict>
+    </dict>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>MunkiImporter</string>
+            <key>Arguments</key>
+            <dict>
+                <key>repo_subdirectory</key>
+                <string>%MUNKI_REPO_SUBDIR%</string>
+            </dict>
+        </dict>
+    </array>
+</dict>
+</plist>

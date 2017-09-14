@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads and packages the latest version of LuLu by Objective-See. LuLu is the free open-source macOS firewall aiming to block outgoing connections. LuLu is currently in Alpha stage!</string>
+    <key>Identifier</key>
+    <string>com.github.apettinen.pkg.LuLu</string>
+    <key>Input</key>
+    <dict>
+      <key>NAME</key>
+      <string>LuLu</string>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>0.6.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.apettinen.download.LuLu</string>
+    <key>Process</key>
+    <array>
+        <dict>
+          <key>Processor</key>
+          <string>PkgRootCreator</string>
+          <key>Arguments</key>
+          <dict>
+            <key>pkgroot</key>
+            <string>%RECIPE_CACHE_DIR%/pkgroot</string>
+            <key>pkgdirs</key>
+            <dict>
+              <key>build</key>
+              <string>0755</string>
+              <key>build/Library</key>
+              <string>0755</string>
+              <key>build/Library/Objective-See</key>
+              <string>0755</string>
+              <key>build/Library/Extensions</key>
+              <string>0755</string>
+              <key>build/Library/LaunchDaemons</key>
+              <string>0755</string>
+              <key>build/Library/Objective-See/LuLu</key>
+              <string>0755</string>
+              <key>build/Applications</key>
+              <string>0755</string>
+              <key>scripts</key>
+              <string>0755</string>
+            </dict>
+          </dict>
+        </dict>
+        <dict>
+          <key>Processor</key>
+          <string>Versioner</string>
+          <key>Arguments</key>
+          <dict>
+            <key>input_plist_path</key>
+            <string>%RECIPE_CACHE_DIR%/unzipped/LuLu.app/Contents/Info.plist</string>
+            <key>plist_version_key</key>
+            <string>CFBundleShortVersionString</string>
+          </dict>
+        </dict>
+        <!-- Move files and directories -->
+        <dict>
+          <key>Processor</key>
+          <string>FileMover</string>
+          <key>comment</key>
+          <string>Move files from .zip to correct paths inside the pkg</string>
+          <key>Arguments</key>
+          <dict>
+            <key>source</key>
+            <string>%RECIPE_CACHE_DIR%/unzipped/rules.plist</string>
+            <key>target</key>
+            <string>%pkgroot%/build/Library/Objective-See/LuLu/rules.plist</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>Processor</key>
+          <string>FileMover</string>
+          <key>Arguments</key>
+          <dict>
+            <key>source</key>
+            <string>%RECIPE_CACHE_DIR%/unzipped/LuLuDaemon</string>
+            <key>target</key>
+            <string>%pkgroot%/build/Library/Objective-See/LuLu/LuLuDaemon</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>Processor</key>
+          <string>FileMover</string>
+          <key>Arguments</key>
+          <dict>
+            <key>source</key>
+            <string>%RECIPE_CACHE_DIR%/unzipped/com.objective-see.lulu.plist</string>
+            <key>target</key>
+            <string>%pkgroot%/build/Library/LaunchDaemons/com.objective-see.lulu.plist</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>Processor</key>
+          <string>Copier</string>
+          <key>comment</key>
+          <string>Copy directories from .zip to correct paths inside the pkg</string>
+          <key>Arguments</key>
+          <dict>
+            <key>source_path</key>
+            <string>%RECIPE_CACHE_DIR%/unzipped/LuLu.kext</string>
+            <key>destination_path</key>
+            <string>%pkgroot%/build/Library/Extensions/LuLu.kext</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>Processor</key>
+          <string>Copier</string>
+          <key>Arguments</key>
+          <dict>
+            <key>source_path</key>
+            <string>%RECIPE_CACHE_DIR%/unzipped/LuLu.app</string>
+            <key>destination_path</key>
+            <string>%pkgroot%/build/Applications/LuLu.app</string>
+          </dict>
+        </dict>
+        <!-- create postinstall script -->
+        <dict>
+          <key>Processor</key>
+          <string>FileCreator</string>
+          <key>Arguments</key>
+          <dict>
+            <key>file_path</key>
+            <string>%pkgroot%/scripts/postinstall</string>
+            <key>file_content</key>
+            <string>#!/bin/sh
+# mimicking LuLu configure.sh
+OSVers=`sw_vers -productVersion`
+if [[ ${OSVers:3:2} -lt 12 ]]; then
+  echo "\nERROR:" $OSVers "is currently unsupported"
+  echo "LuLu requires macOS 10.12+\n"
+  exit -1
+fi
+# hmm... this might already be obsolete:
+/usr/bin/xattr -rc /Applications/LuLu.app/
+/sbin/kextload /Library/Extensions/LuLu.kext
+/bin/launchctl load -w /Library/LaunchDaemons/com.objective-see.lulu.plist
+#/Applications/LuLu.app/Contents/MacOS/LuLu "-install"
+exit 0
+            </string>
+            <key>file_mode</key>
+            <string>0755</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>Processor</key>
+          <string>PkgCreator</string>
+          <key>Arguments</key>
+          <dict>
+            <key>pkgname</key>
+            <string>%NAME%-%version%</string>
+            <key>pkg_request</key>
+            <dict>
+              <key>pkgroot</key>
+              <string>%pkgroot%/build</string>
+              <key>pkgdir</key>
+              <string>%RECIPE_CACHE_DIR%</string>
+              <key>id</key>
+              <string>com.objective-see.LuLu</string>
+              <key>options</key>
+              <string>purge_ds_store</string>
+              <key>version</key>
+              <string>%version%</string>
+              <key>pkgtype</key>
+              <string>flat</string>
+              <key>scripts</key>
+              <string>%pkgroot%/scripts</string>
+              <key>chown</key>
+              <array>
+                <dict>
+                  <key>path</key>
+                  <string>/Library</string>
+                  <key>user</key>
+                  <string>root</string>
+                  <key>group</key>
+                  <string>wheel</string>
+                </dict>
+                <dict>
+                  <!-- rules -->
+                  <key>path</key>
+                  <string>/Library/Objective-See/LuLu/rules.plist</string>
+                  <key>user</key>
+                  <string>root</string>
+                  <key>group</key>
+                  <string>wheel</string>
+                  <key>mode</key>
+                  <string>0700</string>
+                </dict>
+                <dict>
+                  <!-- kext -->
+                  <key>path</key>
+                  <string>/Library/Extensions/LuLu.kext</string>
+                  <key>user</key>
+                  <string>root</string>
+                  <key>group</key>
+                  <string>wheel</string>
+                </dict>
+                <dict>
+                  <!-- launch daemon -->
+                  <key>path</key>
+                  <string>/Library/Objective-See/LuLu/LuLuDaemon</string>
+                  <key>user</key>
+                  <string>root</string>
+                  <key>group</key>
+                  <string>wheel</string>
+                  <key>mode</key>
+                  <string>0755</string>
+                </dict>
+                <dict>
+                  <!-- launch daemon plist -->
+                  <key>path</key>
+                  <string>/Library/LaunchDaemons/com.objective-see.lulu.plist</string>
+                  <key>user</key>
+                  <string>root</string>
+                  <key>group</key>
+                  <string>wheel</string>
+                  <key>mode</key>
+                  <string>0644</string>
+                </dict>
+                <dict>
+                  <!-- Applications dir -->
+                  <key>path</key>
+                  <string>/Applications</string>
+                  <key>user</key>
+                  <string>root</string>
+                  <key>group</key>
+                  <string>admin</string>
+                </dict>
+                <dict>
+                  <!-- main application -->
+                  <key>path</key>
+                  <string>/Applications/LuLu.app</string>
+                  <key>user</key>
+                  <string>root</string>
+                  <key>group</key>
+                  <string>wheel</string>
+                </dict>
+              </array>
+            </dict>
+          </dict>
+        </dict>
+        <dict>
+          <key>Processor</key>
+          <string>PathDeleter</string>
+          <key>Comment</key>
+          <string>Cleaning up</string>
+          <key>Arguments</key>
+          <dict>
+            <key>path_list</key>
+            <array>
+              <string>%pkgroot%</string>
+              <string>%RECIPE_CACHE_DIR%/unzipped</string>
+            </array>
+          </dict>
+        </dict>
+    </array>
+</dict>
+</plist>

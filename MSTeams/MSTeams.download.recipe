@@ -30,6 +30,13 @@
         <dict>
             <key>Processor</key>
             <string>URLDownloader</string>
+						<key>Arguments</key>
+						<dict>
+							<key>curl_opts</key>
+							<array>
+								<string>--no-alpn</string>
+							</array>
+						</dict>
         </dict>
         <dict>
             <key>Processor</key>

@@ -27,7 +27,7 @@
               <key>github_repo</key>
               <string>brave/browser-laptop</string>
               <key>asset_regex</key>
-              <string>Brave*.dmg</string>
+              <string>Brave-(\d*.\d*.\d*).dmg</string>
             </dict>
         </dict>
         <dict>

@@ -27,17 +27,17 @@
               <key>github_repo</key>
               <string>brave/browser-laptop</string>
               <key>asset_regex</key>
-              <string>Brave-(\d+\.)?(\d+\.)?(\d+\.)dmg</string>
+              <string>Brave-(\d*.\d*.\d*).dmg</string>
             </dict>
         </dict>
         <dict>
-          <key>Processor</key>
-          <string>URLDownloader</string>
             <key>Arguments</key>
             <dict>
-                <!-- <key>filename</key>
-                <string>%NAME%-%version%.dmg</string> -->
+                <key>filename</key>
+                <string>%NAME%-%version%.dmg</string>
             </dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
         </dict>
         <dict>
             <key>Processor</key>

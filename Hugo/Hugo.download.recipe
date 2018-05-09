@@ -9,7 +9,7 @@
 	<key>Input</key>
 	<dict>
 		<key>GITHUB_REPO</key>
-		<string>spf13/hugo</string>
+		<string>gohugoio/hugo</string>
 		<key>NAME</key>
 		<string>Hugo</string>
 		<key>INCLUDE_PRERELEASES</key>

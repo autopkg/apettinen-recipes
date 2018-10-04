@@ -36,8 +36,8 @@
               <string>0755</string>
               <key>build/Library/LaunchDaemons</key>
               <string>0755</string>
-              <key>build/Library/Objective-See/LuLu</key>
-              <string>0755</string>
+           <!--   <key>build/Library/Objective-See/LuLu</key>
+              <string>0755</string>-->
               <key>build/Applications</key>
               <string>0755</string>
               <key>scripts</key>
@@ -51,12 +51,26 @@
           <key>Arguments</key>
           <dict>
             <key>input_plist_path</key>
-            <string>%RECIPE_CACHE_DIR%/unzipped/LuLu.app/Contents/Info.plist</string>
+            <string>%RECIPE_CACHE_DIR%/unzipped/LuLu Installer.app/Contents/Info.plist</string>
             <key>plist_version_key</key>
             <string>CFBundleShortVersionString</string>
           </dict>
         </dict>
         <!-- Move files and directories -->
+        <!--
+				<dict> 
+					<key>Processor</key>
+          <string>FileMover</string>
+          <key>comment</key>
+          <string>Move files from .zip to correct paths inside the pkg</string>
+          <key>Arguments</key>
+          <dict>
+            <key>source</key>
+            <string>%RECIPE_CACHE_DIR%/unzipped/</string>
+            <key>target</key>
+            <string>%pkgroot%/build/Library/Objective-See/LuLu/rules.plist</string>
+          </dict>
+        </dict>
         <dict>
           <key>Processor</key>
           <string>FileMover</string>
@@ -65,29 +79,19 @@
           <key>Arguments</key>
           <dict>
             <key>source</key>
-            <string>%RECIPE_CACHE_DIR%/unzipped/rules.plist</string>
-            <key>target</key>
-            <string>%pkgroot%/build/Library/Objective-See/LuLu/rules.plist</string>
-          </dict>
-        </dict>
-        <dict>
-          <key>Processor</key>
-          <string>FileMover</string>
-          <key>Arguments</key>
-          <dict>
-            <key>source</key>
             <string>%RECIPE_CACHE_DIR%/unzipped/LuLuDaemon</string>
             <key>target</key>
             <string>%pkgroot%/build/Library/Objective-See/LuLu/LuLuDaemon</string>
           </dict>
         </dict>
+				-->
         <dict>
           <key>Processor</key>
           <string>FileMover</string>
           <key>Arguments</key>
           <dict>
             <key>source</key>
-            <string>%RECIPE_CACHE_DIR%/unzipped/com.objective-see.lulu.plist</string>
+            <string>%RECIPE_CACHE_DIR%/unzipped/LuLu Installer.app/Contents/Resources/com.objective-see.lulu.plist</string>
             <key>target</key>
             <string>%pkgroot%/build/Library/LaunchDaemons/com.objective-see.lulu.plist</string>
           </dict>
@@ -100,7 +104,7 @@
           <key>Arguments</key>
           <dict>
             <key>source_path</key>
-            <string>%RECIPE_CACHE_DIR%/unzipped/LuLu.kext</string>
+            <string>%RECIPE_CACHE_DIR%/unzipped/LuLu Installer.app/Contents/Resources/LuLu.kext</string>
             <key>destination_path</key>
             <string>%pkgroot%/build/Library/Extensions/LuLu.kext</string>
           </dict>
@@ -111,7 +115,18 @@
           <key>Arguments</key>
           <dict>
             <key>source_path</key>
-            <string>%RECIPE_CACHE_DIR%/unzipped/LuLu.app</string>
+            <string>%RECIPE_CACHE_DIR%/unzipped/LuLu Installer.app/Contents/Resources/LuLu.bundle</string>
+            <key>destination_path</key>
+            <string>%pkgroot%/build/Library/Objective-See/LuLu</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>Processor</key>
+          <string>Copier</string>
+          <key>Arguments</key>
+          <dict>
+            <key>source_path</key>
+            <string>%RECIPE_CACHE_DIR%/unzipped/LuLu Installer.app/Contents/Resources/LuLu.app</string>
             <key>destination_path</key>
             <string>%pkgroot%/build/Applications/LuLu.app</string>
           </dict>
@@ -133,11 +148,15 @@ if [[ ${OSVers:3:2} -lt 12 ]]; then
   echo "LuLu requires macOS 10.12+\n"
   exit -1
 fi
+if [ ! -f $INSTALL_DIRECTORY/installedApps.plist ]; then
+        echo "enumerating (pre)installed applications"
+        /usr/sbin/system_profiler SPApplicationsDataType -xml > $INSTALL_DIRECTORY/installedApps.xml
+fi
+
 # hmm... this might already be obsolete:
 /usr/bin/xattr -rc /Applications/LuLu.app/
 /sbin/kextload /Library/Extensions/LuLu.kext
 /bin/launchctl load -w /Library/LaunchDaemons/com.objective-see.lulu.plist
-#/Applications/LuLu.app/Contents/MacOS/LuLu "-install"
 exit 0
             </string>
             <key>file_mode</key>
@@ -178,8 +197,8 @@ exit 0
                   <string>wheel</string>
                 </dict>
                 <dict>
-                  <!-- rules -->
-                  <key>path</key>
+                 <!-- rules -->
+ <!--                  <key>path</key>
                   <string>/Library/Objective-See/LuLu/rules.plist</string>
                   <key>user</key>
                   <string>root</string>
@@ -189,6 +208,7 @@ exit 0
                   <string>0700</string>
                 </dict>
                 <dict>
+								-->
                   <!-- kext -->
                   <key>path</key>
                   <string>/Library/Extensions/LuLu.kext</string>
@@ -199,7 +219,7 @@ exit 0
                 </dict>
                 <dict>
                   <!-- launch daemon -->
-                  <key>path</key>
+ <!--                  <key>path</key>
                   <string>/Library/Objective-See/LuLu/LuLuDaemon</string>
                   <key>user</key>
                   <string>root</string>
@@ -209,6 +229,7 @@ exit 0
                   <string>0755</string>
                 </dict>
                 <dict>
+								-->
                   <!-- launch daemon plist -->
                   <key>path</key>
                   <string>/Library/LaunchDaemons/com.objective-see.lulu.plist</string>
@@ -218,6 +239,15 @@ exit 0
                   <string>wheel</string>
                   <key>mode</key>
                   <string>0644</string>
+                </dict>
+                <dict>
+                  <!-- Bundle dir -->
+                  <key>path</key>
+                  <string>/Library/Objective-See/LuLu</string>
+                  <key>user</key>
+                  <string>root</string>
+                  <key>group</key>
+                  <string>wheel</string>
                 </dict>
                 <dict>
                   <!-- Applications dir -->

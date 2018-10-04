@@ -15,7 +15,7 @@
         <key>GITHUB_REPO</key>
         <string>objective-see/LuLu</string>
         <key>INCLUDE_PRERELEASES</key>
-        <string>True</string>
+        <string>False</string>
     </dict>
     <key>Process</key>
     <array>

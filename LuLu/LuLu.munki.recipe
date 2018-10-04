@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads, packages and imports to Munki the latest version of LuLu by Objective-See. LuLu is the free open-source macOS firewall aiming to block outgoing connections. LuLu is currently in Alpha stage!</string>
+    <string>Downloads, packages and imports to Munki the latest version of LuLu by Objective-See. LuLu is the free open-source macOS firewall aiming to block outgoing connections.</string>
     <key>Identifier</key>
     <string>com.github.apettinen.munki.LuLu</string>
     <key>ParentRecipe</key>
@@ -29,7 +29,7 @@
                 <string>testing</string>
             </array>
             <key>description</key>
-            <string>LuLu is the free open-source macOS firewall aiming to block outgoing connections. LuLu is currently in Alpha stage!</string>
+            <string>LuLu is the free open-source macOS firewall aiming to block outgoing connections.</string>
             <key>display_name</key>
             <string>%DISPLAY_NAME%</string>
             <key>name</key>

@@ -42,7 +42,7 @@
             <string>%MUNKI_DEVELOPER%</string>
             <key>minimum_os_version</key>
             <string>10.12</string>
-            <key>postinstall_script</key>
+<!--            <key>postinstall_script</key>
             <string>#!/bin/bash
 /Applications/LuLu.app/Contents/MacOS/LuLu "-install"
 exit 0
@@ -51,11 +51,15 @@ exit 0
             <string>#!/bin/bash
 /Applications/LuLu.app/Contents/MacOS/LuLu "-uninstall"
 exit 0
-            </string>
+            </string>-->
             <key>uninstall_script</key>
             <string>#!/bin/sh
+echo "killing the main app"
+/usr/bin/killall "LuLu" 2> /dev/null
 echo "Unloading and removing kext..."
-/sbin/kextload -b com.objective-see.lulu
+/sbin/kextunload /LIbrary/Extensions/LuLu.kext
+# let's rebuild the kernel cache the right way
+#/usr/bin/touch /System/Library/Extensions
 /bin/rm -rf /Library/Extensions/LuLu.kext
 echo "Kext removed, unloading and removing launch daemon and plist"
 /bin/launchctl unload -w /Library/LaunchDaemons/com.objective-see.lulu.plist
@@ -65,7 +69,7 @@ echo "Unloaded and removed launch daemon and plist, removing the main app"
 echo "removed the main app, removing LuLu main folder"
 /bin/rm -rf /Library/Objective-See/LuLu
 echo "killing the processes..."
-/usr/bin/killall "LuLu" 2> /dev/null
+#/usr/bin/killall "LuLu" 2> /dev/null
 /usr/bin/killall "com.objective-see.luluHelper" 2> /dev/null
 /usr/bin/killall "LuLu Helper" 2> /dev/null
 echo "uninstall completed"

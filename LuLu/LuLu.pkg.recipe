@@ -117,7 +117,7 @@
             <key>source_path</key>
             <string>%RECIPE_CACHE_DIR%/unzipped/LuLu Installer.app/Contents/Resources/LuLu.bundle</string>
             <key>destination_path</key>
-            <string>%pkgroot%/build/Library/Objective-See/LuLu</string>
+            <string>%pkgroot%/build/Library/Objective-See/LuLu/LuLu.bundle</string>
           </dict>
         </dict>
         <dict>

@@ -58,9 +58,9 @@ echo "killing the main app"
 /usr/bin/killall "LuLu" 2> /dev/null
 echo "Unloading and removing kext..."
 /sbin/kextunload /LIbrary/Extensions/LuLu.kext
+/bin/rm -rf /Library/Extensions/LuLu.kext
 # let's rebuild the kernel cache the right way
 #/usr/bin/touch /System/Library/Extensions
-/bin/rm -rf /Library/Extensions/LuLu.kext
 echo "Kext removed, unloading and removing launch daemon and plist"
 /bin/launchctl unload -w /Library/LaunchDaemons/com.objective-see.lulu.plist
 /bin/rm /Library/LaunchDaemons/com.objective-see.lulu.plist

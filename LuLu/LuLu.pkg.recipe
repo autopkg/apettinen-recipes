@@ -155,7 +155,7 @@ fi
 
 # hmm... this might already be obsolete:
 /usr/bin/xattr -rc /Applications/LuLu.app/
-/sbin/kextload /Library/Extensions/LuLu.kext
+/sbin/kextload -q /Library/Extensions/LuLu.kext
 /bin/launchctl load -w /Library/LaunchDaemons/com.objective-see.lulu.plist
 exit 0
             </string>

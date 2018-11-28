@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads and packages the latest version of . The resulting package installs to /usr/local/op. You can verify the installation via e.g. gpg or keybase since the op.sig is preserved.</string>
+    <key>Identifier</key>
+    <string>com.github.apettinen.pkg.SubEthaEdit</string>
+    <key>Input</key>
+    <dict>
+      <key>NAME</key>
+      <string>SubEthaEdit</string>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>0.6.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.apettinen.download.SubEthaEdit</string>
+    <key>Process</key>
+    <array>
+				<dict>
+					<key>Processor</key>
+					<string>AppPkgCreator</string>
+					<key>Arguments</key>
+					<dict>
+						<key>app_path</key>
+						<string>%RECIPE_CACHE_DIR%/unarchived/SubEthaEdit.app</string>
+					</dict>
+				</dict>
+        <dict>
+          <key>Processor</key>
+          <string>PathDeleter</string>
+          <key>Comment</key>
+          <string>Cleaning up</string>
+          <key>Arguments</key>
+          <dict>
+            <key>path_list</key>
+            <array>
+							<string>%RECIPE_CACHE_DIR%/unarchived</string>
+						</array>
+          </dict>
+        </dict>
+    </array>
+</dict>
+</plist>

@@ -25,9 +25,9 @@
               <key>include_prereleases</key>
               <string>%INCLUDE_PRERELEASES%</string>
               <key>github_repo</key>
-              <string>brave/browser-laptop</string>
+              <string>brave/brave-browser</string>
               <key>asset_regex</key>
-              <string>Brave-(\d*.\d*.\d*).dmg</string>
+              <string>Brave-Browser.dmg</string>
             </dict>
         </dict>
         <dict>
@@ -49,9 +49,9 @@
           <key>Arguments</key>
           <dict>
             <key>input_path</key>
-            <string>%pathname%/Brave.app</string>
+            <string>%pathname%/Brave Browser.app</string>
             <key>requirement</key>
-            <string>identifier "com.electron.brave" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = KL8N8XSYF4</string>
+            <string>(identifier "com.brave.Browser" or identifier "com.brave.Browser.beta" or identifier "com.brave.Browser.dev" or identifier "com.brave.Browser.nightly") and (certificate leaf = H"392f0ba65b348b1fa2fa028aa11752a01b8481a5" or certificate leaf = H"392f0ba65b348b1fa2fa028aa11752a01b8481a5")</string>
           </dict>
         </dict>
     </array>

@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Terragrunt is a thin wrapper for Terraform that provides extra tools for working with multiple Terraform modules. Defaults to amd64 version.</string>
+	<string>Downloads Terragrunt, a thin wrapper for Terraform that provides extra tools for working with multiple Terraform modules. Defaults to amd64 version.</string>
 	<key>Identifier</key>
 	<string>com.github.apettinen.download.terragrunt</string>
 	<key>Input</key>

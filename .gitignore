@@ -9,4 +9,4 @@
 *.*
 !*.recipe
 !README.md
-!MSTeams/MSTeamsURLProvider.py
+!SharedProcessors/*.py

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string></string>
+	<key>Identifier</key>
+	<string>com.github.apettinen.download.saml2aws</string>
+	<key>Input</key>
+	<dict>
+		<key>GITHUB_REPO</key>
+		<string>Versent/saml2aws</string>
+		<key>NAME</key>
+		<string>saml2aws</string>
+		<key>INCLUDE_PRERELEASES</key>
+		<string></string>
+		<key>OS</key>
+		<string>darwin</string>
+		<key>ARCHITECTURE</key>
+		<string>amd64</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>0.6.0</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>GitHubReleasesInfoProvider</string>
+			<key>Arguments</key>
+			<dict>
+				<key>include_prereleases</key>
+				<string>%INCLUDE_PRERELEASES%</string>
+				<key>github_repo</key>
+				<string>%GITHUB_REPO%</string>
+				<key>asset_regex</key>
+				<string>saml2aws_(\d+).(\d+)(.\d+)_%OS%_%ARCHITECTURE%.(zip|tar.gz)</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>URLDownloader</string>
+			<key>Arguments</key>
+			<dict>
+				<!-- <key>filename</key>
+				<string>%url%</string> -->
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>EndOfCheckPhase</string>
+		</dict>
+	</array>
+</dict>
+</plist>

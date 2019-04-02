@@ -39,16 +39,18 @@
         </dict>
         <dict>
           <key>Processor</key>
-          <string>FileMover</string>
+          <string>Copier</string>
           <key>Comment</key>
-          <string>Move and rename the downloaded binary from the unarchived subfolder</string>
+          <string>Copy and rename the downloaded binary from the unarchived subfolder</string>
           <key>Arguments</key>
           <dict>
-            <key>source</key>
-            <!-- <string>%RECIPE_CACHE_DIR%/downloads/%NAME%-%version%</string> -->
+            <key>source_path</key>
+           <!-- <string>%RECIPE_CACHE_DIR%/downloads/%NAME%-%version%</string> -->
 						<string>%pathname%</string>
-            <key>target</key>
+            <key>destination_path</key>
             <string>%pkgroot%/usr/local/bin/terragrunt</string>
+						<key>overwrite</key>
+						<true/>
           </dict>
         </dict>
         <dict>

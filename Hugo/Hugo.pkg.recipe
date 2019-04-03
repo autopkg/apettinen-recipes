@@ -59,7 +59,7 @@
           <dict>
             <key>path_list</key>
             <array>
-              <string>%pkgroot%/usr/local/bin/LICENSE.md</string>
+              <string>%pkgroot%/usr/local/bin/LICENSE</string>
               <string>%pkgroot%/usr/local/bin/README.md</string>
             </array>
           </dict>

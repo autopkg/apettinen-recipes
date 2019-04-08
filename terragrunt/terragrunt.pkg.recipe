@@ -70,13 +70,23 @@
               <string>purge_ds_store</string>
               <key>chown</key>
               <array>
-                <dict>
+		<dict>
                   <key>path</key>
                   <string>usr</string>
                   <key>user</key>
                   <string>root</string>
                   <key>group</key>
                   <string>admin</string>
+                </dict>
+                <dict>
+                  <key>path</key>
+                  <string>usr/local/bin/terragrunt</string>
+                  <key>user</key>
+                  <string>root</string>
+                  <key>group</key>
+                  <string>admin</string>
+		  <key>mode</key>
+		  <string>0755</string>
                 </dict>
               </array>
             </dict>

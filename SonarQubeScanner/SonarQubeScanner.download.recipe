@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads the latest version of SonarQube Scanner (a .zip file)</string>
+    <key>Identifier</key>
+    <string>com.github.apettinen.download.SonarQubeScanner</string>
+    <key>MinimumVersion</key>
+    <string>0.6.0</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>SonarQubeScanner</string>
+        <key>DL_PAGE_URL</key>
+        <string>https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner</string>
+				<!-- one of macosx, linux, windows -->
+				<key>ARCHITECTURE</key>
+				<string>macosx</string>
+    </dict>
+    <key>Process</key>
+    <array>
+        <dict>
+          <key>Processor</key>
+          <string>URLTextSearcher</string>
+          <key>Arguments</key>
+          <dict>
+            <key>url</key>
+            <string>%DL_PAGE_URL%</string>
+            <key>re_pattern</key>
+						<string>https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-(\d*\.\d*\.\d*\.\d*)-%ARCHITECTURE%.zip</string>
+            <key>result_output_var_name</key>
+            <string>version</string>
+          </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
+            <key>Arguments</key>
+            <dict>
+                <key>url</key>
+								<string>https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-%version%-%ARCHITECTURE%.zip</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+        </dict>
+    </array>
+</dict>
+</plist>

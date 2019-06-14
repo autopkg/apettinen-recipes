@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+		<string>Downloads, repackages, and imports into Munki the latest version of SonarQube Scanner. Will also configure the scanner to contact a desired server via Munki postinstall script. Defaults to not setting the SonarQube server address.</string>
+    <key>Identifier</key>
+    <string>com.github.apettinen.munki.SonarQubeScanner</string>
+    <key>ParentRecipe</key>
+    <string>com.github.apettinen.pkg.SonarQubeScanner</string>
+    <key>MinimumVersion</key>
+    <string>0.6.0</string>
+    <key>Input</key>
+    <dict>
+        <key>MUNKI_NAME</key>
+        <string>%NAME%</string>
+        <key>MUNKI_REPO_SUBDIR</key>
+        <string>apps/%NAME%</string>
+        <key>MUNKI_CATEGORY</key>
+        <string>Utilities</string>
+        <key>MUNKI_DEVELOPER</key>
+        <string>SonarQube</string>
+        <key>DISPLAY_NAME</key>
+        <string>SonarQube Scanner</string>
+				<key>comment</key>
+				<string>If left empty, the postinstall script won't set anything</string>
+				<key>SONAR_SERVER_URL</key>
+				<string></string>
+        <key>pkginfo</key>
+        <dict>
+            <key>catalogs</key>
+            <array>
+                <string>testing</string>
+            </array>
+            <key>description</key>
+						<string>SonarQube® is an automatic code review tool to detect bugs, vulnerabilities and code smells in your code. It can integrate with your existing workflow to enable continuous code inspection across your project branches and pull requests.
+
+The SonarQube Scanner is recommended as the default launcher to analyze a project with SonarQube.</string>
+            <key>display_name</key>
+            <string>%DISPLAY_NAME%</string>
+            <key>name</key>
+            <string>%MUNKI_NAME%</string>
+            <key>unattended_install</key>
+            <true/>
+            <key>category</key>
+            <string>%MUNKI_CATEGORY%</string>
+            <key>developer</key>
+            <string>%MUNKI_DEVELOPER%</string>
+						<key>postinstall_script</key>
+						<string>#!/bin/bash
+set -euo pipefail
+PROPERTIES_FILE="/usr/local/sonarqubescanner/conf/sonar-scanner.properties"
+SONAR_SERVER="%SONAR_SERVER_URL%"
+if [[ -n ${SONAR_SERVER} ]] &#038;&#038; [[ -f ${PROPERTIES_FILE} ]]; then
+	echo "sonar.host.url=${SONAR_SERVER}" >> "${PROPERTIES_FILE}"
+fi
+
+exit 0</string>
+        </dict>
+    </dict>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>MunkiImporter</string>
+            <key>Arguments</key>
+            <dict>
+                <key>repo_subdirectory</key>
+                <string>%MUNKI_REPO_SUBDIR%</string>
+            </dict>
+        </dict>
+    </array>
+</dict>
+</plist>

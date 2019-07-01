@@ -27,9 +27,9 @@
                 <string>testing</string>
             </array>
             <key>description</key>
-            <string>The new Brave browser automatically blocks ads and trackers, making it faster and safer than your current browser.</string>
+						<string>The new Brave browser blocks ads and trackers that slow you down and invade your privacy. Discover a new way of thinking about how the web can work.</string>
             <key>display_name</key>
-            <string>Brave browser</string>
+            <string>Brave Browser</string>
             <key>name</key>
             <string>%NAME%</string>
             <key>unattended_install</key>

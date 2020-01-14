@@ -15,15 +15,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """See docstring for MSTeamsURLProvider class"""
-#import re
+
 from __future__ import absolute_import
 
-from autopkglib import Processor, ProcessorError
-
-try:
-    from urllib.request import urlopen  # For Python 3
-except ImportError:
-    from urllib2 import urlopen  # For Python 2
+from autopkglib import Processor, ProcessorError, URLGetter
 
 __all__ = ["MSTeamsURLProvider"]
 
@@ -32,14 +27,13 @@ TEAMS_ENVIRONMENT = "production"
 TEAMS_PLATFORM = "osx"
 TEAMS_ARCH = ""
 
-class MSTeamsURLProvider(Processor):
+
+class MSTeamsURLProvider(URLGetter):
     """Provides a download URL for the latest MS Teams release. Supports both macOS and Windows clients, with the latter requiring the architecture to be defined"""
+
     description = __doc__
     input_variables = {
-        "base_url": {
-            "required": False,
-            "description": ("Default is %s" % BASE_URL),
-        },
+        "base_url": {"required": False, "description": ("Default is %s" % BASE_URL),},
         "environment": {
             "required": False,
             "description": ("Default is %s" % TEAMS_ENVIRONMENT),
@@ -50,28 +44,14 @@ class MSTeamsURLProvider(Processor):
         },
         "architecture": {
             "required": False,
-            "description": ("Default is empty string, as MS Teams for macOS does not provide different architectures."),
+            "description": (
+                "Default is empty string, as MS Teams for macOS does not provide different architectures."
+            ),
         },
     }
     output_variables = {
-        "url": {
-            "description": "URL to the desired MSTeams release.",
-        },
+        "url": {"description": "URL to the desired MSTeams release.",},
     }
-
-    def get_msteams_pkg_url(self, fetch_url):
-        """Finds a download URL for latest MSTeams release"""
-        try:
-            fref = urlopen(fetch_url)
-            dl_url = fref.read()
-            fref.close()
-        except Exception as err:
-            raise ProcessorError("Could not retrieve %s: %s" %(fetch_url, err))
-        # if the URL is empty, raise error
-        if not dl_url:
-            raise ProcessorError(
-                "Could not find MSTeams download URL in %s" %fetch_url)
-        return dl_url
 
     def main(self):
         """Find and return download URL for MSTeams"""
@@ -85,8 +65,9 @@ class MSTeamsURLProvider(Processor):
         if teams_arch and teams_plat == "windows":
             fetch_url = "".join([fetch_url, "&arch=", teams_arch])
 
-        self.env["url"] = self.get_msteams_pkg_url(fetch_url)
+        self.env["url"] = self.download(fetch_url)
         self.output("MSTeams URL found: %s" % self.env["url"])
+
 
 if __name__ == "__main__":
     PROCESSOR = MSTeamsURLProvider()

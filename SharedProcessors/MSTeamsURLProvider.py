@@ -70,7 +70,11 @@ class MSTeamsURLProvider(URLGetter):
 
         self.env["url"] = self.download(fetch_url, text=True)
         self.output("MSTeams URL found: %s" % self.env["url"])
-        m = re.search(r"production-osx/([\d\.]+)/Teams_osx\.pkg", self.env["url"])
+
+        m = re.search(
+            r"{0}-{1}/([\d\.]+)/Teams_{1}\.(pkg|exe)".format(teams_env, teams_plat),
+            self.env["url"],
+        )
         if m:
             self.env["version"] = m.group(1)
             self.output("MSTeams version found: %s" % self.env["version"])

@@ -65,7 +65,7 @@ class MSTeamsURLProvider(URLGetter):
         if teams_arch and teams_plat == "windows":
             fetch_url = "".join([fetch_url, "&arch=", teams_arch])
 
-        self.env["url"] = self.download(fetch_url)
+        self.env["url"] = self.download(fetch_url, text=True)
         self.output("MSTeams URL found: %s" % self.env["url"])
 
 

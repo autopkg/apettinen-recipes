@@ -32,6 +32,8 @@
             <string>URLDownloader</string>
             <key>Arguments</key>
             <dict>
+                <key>filename</key>
+                <string>%NAME%-%version%.pkg</string>
                 <key>curl_opts</key>
                 <array>
                     <string>--no-alpn</string>

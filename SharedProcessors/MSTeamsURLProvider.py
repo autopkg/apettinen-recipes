@@ -18,6 +18,8 @@
 
 from __future__ import absolute_import
 
+import re
+
 from autopkglib import Processor, ProcessorError, URLGetter
 
 __all__ = ["MSTeamsURLProvider"]
@@ -50,7 +52,8 @@ class MSTeamsURLProvider(URLGetter):
         },
     }
     output_variables = {
-        "url": {"description": "URL to the desired MSTeams release.",},
+        "url": {"description": "URL to the MSTeams release.",},
+        "version": {"description": "The version of the MSTeams release.",},
     }
 
     def main(self):
@@ -65,8 +68,16 @@ class MSTeamsURLProvider(URLGetter):
         if teams_arch and teams_plat == "windows":
             fetch_url = "".join([fetch_url, "&arch=", teams_arch])
 
-        self.env["url"] = self.download(fetch_url)
+        self.env["url"] = self.download(fetch_url, text=True)
         self.output("MSTeams URL found: %s" % self.env["url"])
+
+        m = re.search(
+            r"{0}-{1}/([\d\.]+)/Teams_{1}\.(pkg|exe)".format(teams_env, teams_plat),
+            self.env["url"],
+        )
+        if m:
+            self.env["version"] = m.group(1)
+            self.output("MSTeams version found: %s" % self.env["version"])
 
 
 if __name__ == "__main__":

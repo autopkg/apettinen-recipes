@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads the latest version of minikube and does a checksum verification. Uses io.github.hjuutilainen.SharedProcessors/ChecksumVerifier to verify integrity of the downloaded binary.</string>
+    <key>Identifier</key>
+    <string>com.github.apettinen.download.minikube</string>
+    <key>MinimumVersion</key>
+    <string>1.0.0</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>minikube</string>
+        <key>ARCHITECTURE</key>
+				<!-- One of darwin-amd64, linux-amd64, windows-amd64.exe -->
+        <string>darwin-amd64</string>
+        <key>INCLUDE_PRERELEASES</key>
+        <string></string>
+    </dict>
+    <key>Process</key>
+    <array>
+				<dict>
+					<key>Processor</key>
+					<string>GitHubReleasesInfoProvider</string>
+					<key>Arguments</key>
+					<dict>
+						<key>github_repo</key>
+						<string>kubernetes/minikube</string>
+						<key>asset_regex</key>
+						<string>minikube-%ARCHITECTURE%</string>
+						<key>include_prereleases</key>
+						<string>%INCLUDE_PRERELEASES%</string>
+					</dict>
+				</dict>
+        <dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
+            <key>Arguments</key>
+            <dict>
+							<key>filename</key>
+							<string>%NAME%-%version%</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+        </dict>
+				<dict>
+					<key>Processor</key>
+					<string>URLTextSearcher</string>
+					<key>Arguments</key>
+					<dict>
+						<key>url</key>
+						<string>%url%.sha256</string>
+						<key>re_pattern</key>
+						<string>(?P&lt;checksum&gt;\w+)</string>
+					</dict>
+				</dict>	
+				<dict>
+					<key>Processor</key>
+					<string>io.github.hjuutilainen.SharedProcessors/ChecksumVerifier</string>
+					<key>Arguments</key>
+					<dict>
+						<key>algorithm</key>
+						<string>SHA256</string>
+						<key>checksum</key>
+						<string>%checksum%</string>
+					</dict>
+				</dict>
+    </array>
+</dict>
+</plist>

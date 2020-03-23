@@ -3,20 +3,18 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-		<string>Downloads and packages Terragrunt, a thin wrapper for Terraform that provides extra tools for working with multiple Terraform modules. Defaults to amd64 version. Installs to /usr/local/bin/terragrunt</string>
+		<string>Downloads and packages the latest version of minikube. Uses com.github.grahampugh.recipes.commonprocessors/ChangeModeOwner to chmod the binary before packaging.</string>
     <key>Identifier</key>
-    <string>com.github.apettinen.pkg.terragrunt</string>
+    <string>com.github.apettinen.pkg.minikube</string>
     <key>Input</key>
     <dict>
       <key>NAME</key>
-      <string>Terragrunt</string>
-			<key>ARCHITECTURE</key>
-			<string>darwin_amd64</string>
+      <string>minikube</string>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.6.0</string>
+    <string>1.0.0</string>
     <key>ParentRecipe</key>
-    <string>com.github.apettinen.download.terragrunt</string>
+    <string>com.github.apettinen.download.minikube</string>
     <key>Process</key>
     <array>
         <dict>
@@ -38,20 +36,19 @@
           </dict>
         </dict>
         <dict>
-          <key>Processor</key>
-          <string>Copier</string>
-          <key>Comment</key>
-          <string>Copy and rename the downloaded binary. Prevents downloading again.</string>
-          <key>Arguments</key>
-          <dict>
-            <key>source_path</key>
-           <!-- <string>%RECIPE_CACHE_DIR%/downloads/%NAME%-%version%</string> -->
-						<string>%pathname%</string>
-            <key>destination_path</key>
-            <string>%pkgroot%/usr/local/bin/terragrunt</string>
-						<key>overwrite</key>
-						<true/>
-          </dict>
+            <key>Processor</key>
+            <string>Copier</string>
+						<key>Comment</key>
+						<string>Copy and rename the downloaded binary.</string>
+            <key>Arguments</key>
+            <dict>
+                <key>source_path</key>
+                <string>%pathname%</string>
+                <key>destination_path</key>
+                <string>%pkgroot%/usr/local/bin/minikube</string>
+                <key>overwrite</key>
+                <true/>
+            </dict>
         </dict>
         <dict>
           <key>Processor</key>
@@ -59,18 +56,20 @@
           <key>Arguments</key>
           <dict>
             <key>pkgname</key>
-            <string>%NAME%-%version%</string>
+            <string>%NAME%</string>
             <key>pkg_request</key>
             <dict>
               <key>pkgdir</key>
               <string>%RECIPE_CACHE_DIR%</string>
               <key>id</key>
-              <string>io.gruntwork.terragrunt</string>
+              <string>io.kubernetes.pkg.minikube</string>
               <key>options</key>
               <string>purge_ds_store</string>
+              <key>version</key>
+              <string>%version%</string>
               <key>chown</key>
               <array>
-							<dict>
+                <dict>
                   <key>path</key>
                   <string>usr</string>
                   <key>user</key>
@@ -80,7 +79,7 @@
                 </dict>
                 <dict>
                   <key>path</key>
-                  <string>usr/local/bin/terragrunt</string>
+                  <string>usr/local/bin/minikube</string>
                   <key>user</key>
                   <string>root</string>
                   <key>group</key>

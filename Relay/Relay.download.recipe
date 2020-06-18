@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Downloads the latest version of Relay by Puppet, a service that lets you connect tools, APIs, and infrastructure to automate common tasks through simpler, smarter workflows.</string>
+	<key>Identifier</key>
+	<string>com.github.apettinen.download.Relay</string>
+	<key>Input</key>
+	<dict>
+		<key>GITHUB_REPO</key>
+		<string>puppetlabs/relay</string>
+		<key>NAME</key>
+		<string>Relay</string>
+		<key>INCLUDE_PRERELEASES</key>
+		<string></string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>0.6.0</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>GitHubReleasesInfoProvider</string>
+			<key>Arguments</key>
+			<dict>
+				<key>include_prereleases</key>
+				<string>%INCLUDE_PRERELEASES%</string>
+				<key>github_repo</key>
+				<string>%GITHUB_REPO%</string>
+				<key>asset_regex</key>
+				<string>relay-v(\d+).(\d+)?(.\d+)-darwin-amd64</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>URLDownloader</string>
+			<key>Arguments</key>
+			<dict>
+				<!-- <key>filename</key>
+				<string>%url%</string> -->
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>EndOfCheckPhase</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>URLTextSearcher</string>
+			<key>Arguments</key>
+			<dict>
+				<key>url</key>
+				<string>%url%.sha256</string>
+				<key>re_pattern</key>
+				<string>(?P&lt;checksum&gt;\w+)</string>
+			</dict>
+		</dict> 
+		<dict>
+			<key>Processor</key>
+			<string>io.github.hjuutilainen.SharedProcessors/ChecksumVerifier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>algorithm</key>
+				<string>SHA256</string>
+				<key>checksum</key>
+				<string>%checksum%</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>

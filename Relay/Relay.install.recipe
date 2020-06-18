@@ -3,15 +3,15 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads, packages and install the latest version of 1Password Command Line Interface. The package will be installed to /usr/local/bin and can be verified via e.g. gpg or keybase with the /usr/local/bin/op.sig file.</string>
+		<string>Downloads and packages the latest version of Relay by Puppet, a service that lets you connect tools, APIs, and infrastructure to automate common tasks through simpler, smarter workflows. The package will install to /usr/local/bin</string>
     <key>Identifier</key>
-    <string>com.github.apettinen.install.1Password_CLI</string>
+    <string>com.github.apettinen.install.Relay</string>
     <key>Input</key>
     <dict/>
     <key>MinimumVersion</key>
     <string>0.6.0</string>
     <key>ParentRecipe</key>
-    <string>com.github.apettinen.download.1Password_CLI</string>
+    <string>com.github.apettinen.pkg.Relay</string>
     <key>Process</key>
     <array>
         <dict>
@@ -20,7 +20,7 @@
             <key>Arguments</key>
             <dict>
                 <key>pkg_path</key>
-                <string>%RECIPE_CACHE_DIR%/1Password_CLI.pkg</string>
+                <string>%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg</string>
             </dict>
         </dict>
     </array>

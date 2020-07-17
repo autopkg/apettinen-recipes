@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads the latest version of nmap, and if gpg is found, verifies the signature. NB! make sure the nmap gpg keys are in your keyring, they can be found from https://svn.nmap.org/nmap/docs/nmap_gpgkeys.txt</string>
+    <key>Identifier</key>
+    <string>com.github.apettinen.download.nmap</string>
+    <key>MinimumVersion</key>
+    <string>0.6.0</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>nmap</string>
+        <key>DL_PAGE_URL</key>
+        <string>https://nmap.org/download.html#macosx</string>
+				<key>GPG_PATH</key>
+				<string>/usr/local/bin/gpg</string>
+    </dict>
+    <key>Process</key>
+    <array>
+        <dict>
+          <key>Processor</key>
+          <string>URLTextSearcher</string>
+          <key>Arguments</key>
+          <dict>
+            <key>url</key>
+            <string>%DL_PAGE_URL%</string>
+            <key>re_pattern</key>
+						<string>https://nmap.org/dist/nmap-(\d*\.\d*).dmg</string>
+            <key>result_output_var_name</key>
+            <string>version</string>
+          </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
+            <key>Arguments</key>
+            <dict>
+                <key>url</key>
+								<string>https://nmap.org/dist/nmap-%version%.dmg</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+        </dict>
+				<dict>
+					<key>Processor</key>
+					<string>URLDownloader</string>
+					<key>Arguments</key>
+					<dict>
+						<key>url</key>
+						<string>https://nmap.org/dist/sigs/nmap-%version%.dmg.asc</string>
+					</dict>
+				</dict>
+				<dict>
+					<key>Processor</key>
+					<string>com.github.autopkg.gerardkok-recipes.SharedProcessors/GPGSignatureVerifier</string>
+					<key>Arguments</key>
+					<dict>
+						<key>gpg_path</key>
+						<string>%GPG_PATH%</string>
+						<key>public_key_id</key>
+						<string>6B9355D0</string>
+						<key>distribution_file</key>
+						<string>%RECIPE_CACHE_DIR%/downloads/nmap-%version%.dmg</string>
+						<key>signature_file</key>
+						<string>%RECIPE_CACHE_DIR%/downloads/nmap-%version%.dmg.asc</string>
+					</dict>
+				</dict>
+    </array>
+</dict>
+</plist>

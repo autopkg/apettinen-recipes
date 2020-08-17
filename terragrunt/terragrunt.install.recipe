@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+		<string>Downloads, packages, and installs Terragrunt, a thin wrapper for Terraform that provides extra tools for working with multiple Terraform modules. Defaults to amd64 version. Installs to /usr/local/bin/terragrunt</string>
+	<key>Identifier</key>
+	<string>com.github.apettinen.install.terragrunt</string>
+	<key>Input</key>
+	<dict>
+		<key>NAME</key>
+		<string>terragrunt</string>
+	</dict>
+	<key>MiniumumVersion</key>
+	<string>1.0</string>
+	<key>ParentRecipe</key>
+	<string>com.github.apettinen.pkg.terragrunt</string>
+	<key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>Installer</string>
+        </dict>
+    </array>
+</dict>
+</plist>

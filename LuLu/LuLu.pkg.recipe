@@ -168,10 +168,10 @@ exit 0
           <string>PkgCreator</string>
           <key>Arguments</key>
           <dict>
-            <key>pkgname</key>
-            <string>%NAME%-%version%</string>
             <key>pkg_request</key>
             <dict>
+              <key>pkgname</key>
+              <string>%NAME%-%version%</string>
               <key>pkgroot</key>
               <string>%pkgroot%/build</string>
               <key>pkgdir</key>

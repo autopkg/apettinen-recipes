@@ -15,9 +15,12 @@
         <!-- options for bits: amd64 and 386 -->
         <key>BITS</key>
         <string>amd64</string>
+        <!-- options for architecture: darwin, linux, freebsd, windows, etc -->
+        <key>ARCHITECTURE</key>
+        <string>darwin</string>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.6.0</string>
+    <string>1.0.0</string>
     <key>Process</key>
     <array>
         <dict>
@@ -30,14 +33,14 @@
               <key>github_repo</key>
               <string>git-lfs/git-lfs</string>
               <key>asset_regex</key>
-              <string>git-lfs-darwin-%BITS%-.+\.tar.gz</string>
+              <string>git-lfs-%ARCHITECTURE%-%BITS%-.+\.zip</string>
             </dict>
         </dict>
         <dict>
             <key>Arguments</key>
             <dict>
                 <key>filename</key>
-                <string>%NAME%-%BITS%-%version%.tar.gz</string>
+                <string>%NAME%-%BITS%-%version%.zip</string>
             </dict>
             <key>Processor</key>
             <string>URLDownloader</string>

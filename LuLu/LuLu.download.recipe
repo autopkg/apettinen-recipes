@@ -3,7 +3,9 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest version of LuLu by Objective-See. LuLu is the free open-source macOS firewall aiming to block outgoing connections. LuLu is currently in Alpha stage!</string>
+    <string>Downloads the latest version of LuLu by Objective-See. 
+        Please Note: In order to minimise user requests on first launch you'll need to 
+        deploy a System Extension Profile and Content Filter profile with this title</string>
     <key>Identifier</key>
     <string>com.github.apettinen.download.LuLu</string>
     <key>MinimumVersion</key>
@@ -29,34 +31,16 @@
               <key>github_repo</key>
               <string>%GITHUB_REPO%</string>
               <key>asset_regex</key>
-              <string>LuLu_[\d+?]{1,}.|_[\d+?]{1,}.|_[\d+?]{1,}.zip</string>
+              <string>LuLu_[\d+?]{1,}.|_[\d+?]{1,}.|_[\d+?]{1,}.dmg</string>
             </dict>
         </dict>
         <dict>
             <key>Processor</key>
             <string>URLDownloader</string>
-            <!-- <key>Arguments</key>
-            <dict>
-                <key>url</key>
-                <string>%URL%</string>
-            </dict> -->
         </dict>
         <dict>
             <key>Processor</key>
             <string>EndOfCheckPhase</string>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>Unarchiver</string>
-            <key>Arguments</key>
-            <dict>
-                <key>archive_path</key>
-                <string>%pathname%</string>
-                <key>destination_path</key>
-                <string>%RECIPE_CACHE_DIR%/unzipped/</string>
-                <key>purge_destination</key>
-                <true/>
-            </dict>
         </dict>
         <dict>
           <key>Processor</key>
@@ -64,14 +48,9 @@
           <key>Arguments</key>
           <dict>
             <key>input_path</key>
-            <string>%RECIPE_CACHE_DIR%/unzipped/LuLu Installer.app</string>
+            <string>%pathname%/LuLu.app</string>
             <key>requirement</key>
-						<string>anchor apple generic and identifier
-						"com.objective-see.lulu.installer" and (certificate
-						leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate
-						1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate
-						leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate
-						leaf[subject.OU] = VBG97UB4TA)</string>
+            <string>anchor apple generic and identifier "com.objective-see.lulu.app" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = VBG97UB4TA)</string>
           </dict>
         </dict>
     </array>

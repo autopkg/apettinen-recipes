@@ -3,7 +3,9 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads, packages and imports to Munki the latest version of LuLu by Objective-See. LuLu is the free open-source macOS firewall aiming to block outgoing connections.</string>
+    <string>Downloads, packages and imports to Munki the latest version of LuLu by Objective-See. 
+        Please Note: In order to minimise user requests on first launch you'll need to 
+        deploy a System Extension Profile and Content Filter profile with this title</string>
     <key>Identifier</key>
     <string>com.github.apettinen.munki.LuLu</string>
     <key>ParentRecipe</key>
@@ -41,38 +43,17 @@
             <key>developer</key>
             <string>%MUNKI_DEVELOPER%</string>
             <key>minimum_os_version</key>
-            <string>10.12</string>
-<!--            <key>postinstall_script</key>
-            <string>#!/bin/bash
-/Applications/LuLu.app/Contents/MacOS/LuLu "-install"
-exit 0
-            </string>
-            <key>preuninstall_script</key>
-            <string>#!/bin/bash
-/Applications/LuLu.app/Contents/MacOS/LuLu "-uninstall"
-exit 0
-            </string>-->
+            <string>10.15</string>
             <key>uninstall_script</key>
             <string>#!/bin/sh
-echo "killing the main app"
+/bin/echo "killing the main app"
 /usr/bin/killall "LuLu" 2> /dev/null
-echo "Unloading and removing kext..."
-/sbin/kextunload /LIbrary/Extensions/LuLu.kext
-/bin/rm -rf /Library/Extensions/LuLu.kext
-# let's rebuild the kernel cache the right way
-#/usr/bin/touch /System/Library/Extensions
-echo "Kext removed, unloading and removing launch daemon and plist"
-/bin/launchctl unload -w /Library/LaunchDaemons/com.objective-see.lulu.plist
-/bin/rm /Library/LaunchDaemons/com.objective-see.lulu.plist
-echo "Unloaded and removed launch daemon and plist, removing the main app"
+/bin/echo "Removing the main app"
 /bin/rm -rf /Applications/LuLu.app
-echo "removed the main app, removing LuLu main folder"
-/bin/rm -rf /Library/Objective-See/LuLu
-echo "killing the processes..."
-#/usr/bin/killall "LuLu" 2> /dev/null
+/bin/echo "removed the main app, killing the process"
 /usr/bin/killall "com.objective-see.luluHelper" 2> /dev/null
 /usr/bin/killall "LuLu Helper" 2> /dev/null
-echo "uninstall completed"
+/bin/echo "uninstall completed"
 exit 0
             </string>
         </dict>

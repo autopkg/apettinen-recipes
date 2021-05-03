@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest version of minikube and does a checksum verification. Uses io.github.hjuutilainen.SharedProcessors/ChecksumVerifier to verify integrity of the downloaded binary.</string>
+    <string>Downloads the latest version of minikube and does a checksum verification. Uses io.github.hjuutilainen.SharedProcessors/ChecksumVerifier to verify integrity of the downloaded binary. Defaults to downloading darwin-amd64 (intel) build, use ARCHITECTURE to download other builds (like darwin-arm64)</string>
     <key>Identifier</key>
     <string>com.github.apettinen.download.minikube</string>
     <key>MinimumVersion</key>
@@ -13,7 +13,7 @@
         <key>NAME</key>
         <string>minikube</string>
         <key>ARCHITECTURE</key>
-				<!-- One of darwin-amd64, linux-amd64, windows-amd64.exe -->
+				<!-- One of darwin-arm64, darwin-amd64, linux-amd64, windows-amd64.exe -->
         <string>darwin-amd64</string>
         <key>INCLUDE_PRERELEASES</key>
         <string></string>

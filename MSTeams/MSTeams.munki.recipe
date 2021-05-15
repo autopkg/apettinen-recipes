@@ -97,7 +97,7 @@
                <key>input_plist_path</key>
                <string>%RECIPE_CACHE_DIR%/downloads/Applications/Microsoft Teams.app/Contents/Info.plist</string>
                <key>plist_version_key</key>
-               <string>CFBundleShortVersionString</string>
+               <string>CFBundleVersion</string>
             </dict>
             <key>Processor</key>
             <string>Versioner</string>
@@ -126,7 +126,7 @@
                     <string>/Applications/Microsoft Teams.app</string>
                 </array>
                 <key>version_comparison_key</key>
-                <string>CFBundleShortVersionString</string>
+                <string>CFBundleVersion</string>
             </dict>
         </dict>
         <dict>

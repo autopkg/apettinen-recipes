@@ -15,7 +15,7 @@
         <key>MUNKI_NAME</key>
         <string>%NAME%</string>
         <key>MUNKI_REPO_SUBDIR</key>
-        <string>apps/Office2016/</string>
+        <string>apps/Office2019/</string>
         <key>MUNKI_CATEGORY</key>
         <string>Office 2016</string>
         <key>MUNKI_DEVELOPER</key>
@@ -24,6 +24,8 @@
         <string>Microsoft Teams</string>
         <key>MUNKI_DESCRIPTION</key>
         <string>Microsoft Teams is the new chat-centered workspace in Office 365. Keep all your content, tools, people, and conversations together in one place.</string>
+        <key>VERSIONTYPE</key>
+        <string>CFBundleShortVersionString</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
@@ -92,17 +94,19 @@
             <string>PkgPayloadUnpacker</string>
         </dict>
         <dict>
+            <key>Processor</key>
+            <string>Versioner</string>
             <key>Arguments</key>
             <dict>
                <key>input_plist_path</key>
                <string>%RECIPE_CACHE_DIR%/downloads/Applications/Microsoft Teams.app/Contents/Info.plist</string>
                <key>plist_version_key</key>
-               <string>CFBundleShortVersionString</string>
+               <string>%VERSIONTYPE%</string>
             </dict>
-            <key>Processor</key>
-            <string>Versioner</string>
         </dict>
         <dict>
+            <key>Processor</key>
+            <string>MunkiPkginfoMerger</string>
             <key>Arguments</key>
             <dict>
                 <key>additional_pkginfo</key>
@@ -111,8 +115,6 @@
                     <string>%version%</string>
                 </dict>
             </dict>
-            <key>Processor</key>
-            <string>MunkiPkginfoMerger</string>
         </dict>
         <dict>
             <key>Processor</key>
@@ -126,7 +128,7 @@
                     <string>/Applications/Microsoft Teams.app</string>
                 </array>
                 <key>version_comparison_key</key>
-                <string>CFBundleShortVersionString</string>
+                <string>%VERSIONTYPE%</string>
             </dict>
         </dict>
         <dict>

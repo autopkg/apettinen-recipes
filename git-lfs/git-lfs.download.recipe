@@ -3,51 +3,155 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Download GitHub git-lfs binary for macOS. This recipe can be configured to download either 64bit (amd64) or 32bit (386) build.</string>
+    <string>Downloads and packages the latest version of GitHub git-lfs binary.</string>
     <key>Identifier</key>
-    <string>com.github.apettinen.download.git-lfs</string>
+    <string>com.github.apettinen.pkg.git-lfs</string>
     <key>Input</key>
     <dict>
-        <key>INCLUDE_PRERELEASES</key>
-        <string></string>
-        <key>NAME</key>
-        <string>git-lfs</string>
-        <!-- options for bits: amd64 and 386 -->
-        <key>BITS</key>
-        <string>amd64</string>
-        <!-- options for architecture: darwin, linux, freebsd, windows, etc -->
-        <key>ARCHITECTURE</key>
-        <string>darwin</string>
+      <key>NAME</key>
+      <string>git-lfs</string>
     </dict>
     <key>MinimumVersion</key>
-    <string>1.0.0</string>
+    <string>0.6.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.apettinen.download.git-lfs</string>
     <key>Process</key>
     <array>
         <dict>
+          <key>Processor</key>
+          <string>PkgRootCreator</string>
+          <key>Arguments</key>
+          <dict>
+            <key>pkgroot</key>
+            <string>%RECIPE_CACHE_DIR%/pkgroot</string>
+            <key>pkgdirs</key>
+            <dict>
+              <key>usr</key>
+              <string>0755</string>
+              <key>usr/local</key>
+              <string>0755</string>
+              <key>usr/local/bin</key>
+              <string>0755</string>
+              <key>usr/local/man</key>
+              <string>0755</string>
+            </dict>
+          </dict>
+        </dict>
+        <dict>
             <key>Processor</key>
-            <string>GitHubReleasesInfoProvider</string>
+            <string>Unarchiver</string>
             <key>Arguments</key>
             <dict>
-              <key>include_prereleases</key>
-              <string>%INCLUDE_PRERELEASES%</string>
-              <key>github_repo</key>
-              <string>git-lfs/git-lfs</string>
-              <key>asset_regex</key>
-              <string>git-lfs-%ARCHITECTURE%-%BITS%-.+\.zip</string>
+                <key>archive_path</key>
+                <string>%pathname%</string>
+                <key>destination_path</key>
+                <string>%RECIPE_CACHE_DIR%/expanded</string>
+                <key>purge_destination</key>
+                <true/>
             </dict>
         </dict>
         <dict>
-            <key>Arguments</key>
-            <dict>
-                <key>filename</key>
-                <string>%NAME%-%BITS%-%version%.zip</string>
-            </dict>
-            <key>Processor</key>
-            <string>URLDownloader</string>
+          <key>Processor</key>
+          <string>FileMover</string>
+          <key>Comment</key>
+          <string>Move and rename the downloaded binary from the unarchived subfolder</string>
+          <key>Arguments</key>
+          <dict>
+            <key>source</key>
+            <string>%RECIPE_CACHE_DIR%/expanded/git-lfs-%version%/git-lfs</string>
+            <key>target</key>
+            <string>%pkgroot%/usr/local/bin/git-lfs</string>
+          </dict>
         </dict>
         <dict>
-            <key>Processor</key>
-            <string>EndOfCheckPhase</string>
+          <key>Processor</key>
+          <string>FileMover</string>
+          <key>Comment</key>
+          <string>Move and rename the html dir from the unarchived subfolder</string>
+          <key>Arguments</key>
+          <dict>
+            <key>source</key>
+            <string>%RECIPE_CACHE_DIR%/expanded/git-lfs-%version%/man/html</string>
+            <key>target</key>
+            <string>%pkgroot%/usr/local/man/html</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>Processor</key>
+          <string>FileMover</string>
+          <key>Comment</key>
+          <string>Move and rename the man1 dir from the unarchived subfolder</string>
+          <key>Arguments</key>
+          <dict>
+            <key>source</key>
+            <string>%RECIPE_CACHE_DIR%/expanded/git-lfs-%version%/man/man1</string>
+            <key>target</key>
+            <string>%pkgroot%/usr/local/man/man1</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>Processor</key>
+          <string>FileMover</string>
+          <key>Comment</key>
+          <string>Move and rename the man5 dir from the unarchived subfolder</string>
+          <key>Arguments</key>
+          <dict>
+            <key>source</key>
+            <string>%RECIPE_CACHE_DIR%/expanded/git-lfs-%version%/man/man5</string>
+            <key>target</key>
+            <string>%pkgroot%/usr/local/man/man5</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>Processor</key>
+          <string>PathDeleter</string>
+          <key>Comment</key>
+          <string>Delete what's left of the expanded archive</string>
+          <key>Arguments</key>
+          <dict>
+            <key>path_list</key>
+            <string>%RECIPE_CACHE_DIR%/expanded/</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>Processor</key>
+          <string>PkgCreator</string>
+          <key>Arguments</key>
+          <dict>
+            <key>pkg_request</key>
+            <dict>
+              <key>pkgname</key>
+              <string>%NAME%-%BITS%-%version%</string>
+              <key>pkgdir</key>
+              <string>%RECIPE_CACHE_DIR%</string>
+              <key>id</key>
+              <string>com.github.%NAME%</string>
+              <key>options</key>
+              <string>purge_ds_store</string>
+              <key>chown</key>
+              <array>
+                <dict>
+                  <key>path</key>
+                  <string>usr</string>
+                  <key>user</key>
+                  <string>root</string>
+                  <key>group</key>
+                  <string>admin</string>
+                </dict>
+              </array>
+            </dict>
+          </dict>
+        </dict>
+        <dict>
+          <key>Processor</key>
+          <string>PathDeleter</string>
+          <key>Comment</key>
+          <string>Cleaning up pkgroot</string>
+          <key>Arguments</key>
+          <dict>
+            <key>path_list</key>
+            <string>%pkgroot%</string>
+          </dict>
         </dict>
     </array>
 </dict>

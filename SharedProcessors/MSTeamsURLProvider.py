@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/local/autopkg/python
 #
 # Antti Pettinen
 # Copyright 2017 Tampere University of Technology

@@ -12,25 +12,16 @@
         <string></string>
         <key>NAME</key>
         <string>Brave</string>
-				<key>SPARKLE_FEED_URL</key>
-				<string>https://updates.bravesoftware.com/sparkle/Brave-Browser/stable/appcast.xml</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.6.0</string>
     <key>Process</key>
     <array>
-				<dict>
-            <key>Arguments</key>
-            <dict>
-								<key>appcast_url</key>
-								<string>%SPARKLE_FEED_URL%</string>
-            </dict>
-            <key>Processor</key>
-            <string>SparkleUpdateInfoProvider</string>
-				</dict>
         <dict>
             <key>Arguments</key>
             <dict>
+                <key>url</key>
+                <string>https://referrals.brave.com/latest/Brave-Browser.dmg</string>
                 <key>filename</key>
                 <string>%NAME%.dmg</string>
             </dict>

@@ -14,8 +14,12 @@
 		<string>Hugo</string>
 		<key>INCLUDE_PRERELEASES</key>
 		<string></string>
-		<key>KERNEL_BITS</key>
-		<string>64</string>
+		<key>HUGO_ASSET_TYPE</key>
+		<!-- One of hugo or hugo_extended -->
+		<string>hugo</string>
+		<key>ARCHITECTURE</key>
+		<!-- One of darwin-universal, windows-amd64, linux-amd64, etc. See Hugo github releases for details -->
+		<string>darwin-universal</string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>0.6.0</string>
@@ -31,7 +35,7 @@
 				<key>github_repo</key>
 				<string>%GITHUB_REPO%</string>
 				<key>asset_regex</key>
-				<string>hugo_(\d+).(\d+)?(.\d+)_macOS-%KERNEL_BITS%bit.(zip|tar.gz)</string>
+				<string>%HUGO_ASSET_TYPE%_(\d+).(\d+)?(.\d+)_%ARCHITECTURE%.(zip|tar.gz)</string>
 			</dict>
 		</dict>
 		<dict>

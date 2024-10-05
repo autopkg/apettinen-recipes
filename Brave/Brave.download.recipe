@@ -8,8 +8,6 @@
     <string>com.github.apettinen.download.brave</string>
     <key>Input</key>
     <dict>
-        <key>INCLUDE_PRERELEASES</key>
-        <string></string>
         <key>NAME</key>
         <string>Brave</string>
     </dict>

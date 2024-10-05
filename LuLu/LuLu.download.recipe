@@ -17,7 +17,7 @@
         <key>GITHUB_REPO</key>
         <string>objective-see/LuLu</string>
         <key>INCLUDE_PRERELEASES</key>
-        <string>False</string>
+        <string></string>
     </dict>
     <key>Process</key>
     <array>
@@ -31,7 +31,7 @@
               <key>github_repo</key>
               <string>%GITHUB_REPO%</string>
               <key>asset_regex</key>
-              <string>LuLu_[\d+?]{1,}.|_[\d+?]{1,}.|_[\d+?]{1,}.dmg</string>
+                  <string>LuLu_[\d._]+(\.dmg|\.zip)</string>
             </dict>
         </dict>
         <dict>

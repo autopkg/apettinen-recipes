@@ -42,7 +42,7 @@
             <key>developer</key>
             <string>%MUNKI_DEVELOPER%</string>
             <key>minimum_os_version</key>
-            <string>10.12</string>
+            <string>12.3</string>
         </dict>
     </dict>
     <key>Process</key>

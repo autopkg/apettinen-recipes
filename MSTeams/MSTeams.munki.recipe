@@ -3,15 +3,19 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads Microsoft Teams and imports it to Munki.</string>
+    <string>Downloads Microsoft Teams and imports it to Munki.
+
+Set the DERIVE_MIN_OS variable to a non-empty string to set the minimum_os_version via MunkiInstallsItemsCreator. This requires a minimum AutoPkg version of 2.7 please update if you're not already running it.</string>
     <key>Identifier</key>
     <string>com.github.apettinen.munki.MSTeams</string>
     <key>ParentRecipe</key>
     <string>com.github.apettinen.download.MSTeams</string>
     <key>MinimumVersion</key>
-    <string>0.6.0</string>
+    <string>2.7</string>
     <key>Input</key>
     <dict>
+        <key>DERIVE_MIN_OS</key>
+        <string>YES</string>
         <key>MUNKI_NAME</key>
         <string>%NAME%</string>
         <key>MUNKI_REPO_SUBDIR</key>
@@ -129,6 +133,8 @@
                 </array>
                 <key>version_comparison_key</key>
                 <string>%VERSIONTYPE%</string>
+                <key>derive_minimum_os_version</key>
+                <string>%DERIVE_MIN_OS%</string>
             </dict>
         </dict>
         <dict>
